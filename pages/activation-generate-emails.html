@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Emails — G2 Activate</title>
+  <link rel="stylesheet" href="../shared/elevate-lite/tokens/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/components/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/icons/icons.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--bg-neutral-5);
+      color: var(--text-default);
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    /* MyG2 Global Header */
+    .myg2-header {
+      background: white;
+      height: 60px;
+      border-bottom: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .myg2-header-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: var(--text-default);
+      flex-shrink: 0;
+    }
+    .myg2-header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .myg2-logo {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .myg2-logo img {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+    .help-icon, .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .help-icon {
+      border: 1px solid var(--border-light);
+      color: var(--text-subtle);
+    }
+    .user-avatar {
+      background: var(--bg-primary);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Top Controls for Demo */
+    .demo-controls {
+      position: absolute;
+      top: 84px;
+      right: 28px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+    
+    /* Page Layout */
+    .page-container {
+      padding: 24px 28px 96px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Fixed Bottom Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: white;
+      border-top: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 28px;
+      gap: 12px;
+      z-index: 50;
+      box-shadow: 0px -2px 8px rgba(32, 31, 35, 0.06);
+    }
+    
+    .page-title {
+      font-size: 38px;
+      font-weight: 700;
+      color: #252530;
+      line-height: 48px;
+      margin: 0 0 24px 0;
+    }
+    
+    .columns-layout {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    
+    /* Left Column */
+    .recipients-column {
+      width: 564px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sticky-header-card {
+      background: white;
+      border-radius: 12px 12px 0 0;
+      border: 0.5px solid var(--border-light);
+      border-bottom: 0.5px solid var(--border-medium);
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      padding: 24px 24px 12px;
+      z-index: 10;
+    }
+    
+    .sticky-header-top {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .sticky-header-title {
+      font-size: 21px;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-default);
+    }
+    
+    .sticky-header-count {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+    }
+    
+    .sticky-header-controls {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .search-input-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: var(--bg-neutral-5);
+      border: 1px solid var(--border-medium);
+      border-radius: 20px;
+      height: 40px;
+      padding: 0 16px;
+      gap: 8px;
+    }
+    
+    .search-input-wrapper img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.5;
+    }
+    
+    .search-input {
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-default);
+      width: 100%;
+      outline: none;
+    }
+    
+    .search-input::placeholder {
+      color: var(--text-nonessential);
+    }
+    
+    .filters-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 16px;
+      background: var(--bg-neutral-5);
+      border: 1px solid var(--border-medium);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+    }
+    
+    .filters-btn img {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .content-area-card {
+      background: white;
+      border: 1px solid var(--border-light);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      padding: 16px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .list-top-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .showing-text {
+      font-size: 16px;
+      color: var(--text-nonessential);
+    }
+    
+    .sort-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+      cursor: pointer;
+    }
+    
+    .sort-dropdown img {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .contact-card {
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: all 150ms ease;
+      background: white;
+    }
+    
+    .contact-card:hover {
+      border-color: var(--border-medium);
+    }
+    
+    .contact-card.selected {
+      border-color: var(--text-primary);
+      background-color: #f5f4fb;
+    }
+    
+    .checkbox-wrapper {
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    
+    .checkbox-input {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 1px solid var(--border-medium);
+      appearance: none;
+      cursor: pointer;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    
+    .checkbox-input:checked {
+      background: var(--bg-primary);
+      border-color: var(--bg-primary);
+    }
+    
+    .checkbox-input:checked::after {
+      content: '';
+      width: 10px;
+      height: 5px;
+      border-left: 2px solid white;
+      border-bottom: 2px solid white;
+      transform: rotate(-45deg) translateY(-2px);
+    }
+    
+    .contact-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    
+    .contact-name-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .contact-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+    }
+    
+    .likely-visitor-badge {
+      background: var(--bg-primary-20);
+      border: 1px solid var(--text-primary);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 8px;
+      line-height: 14px;
+    }
+    
+    .contact-title {
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+    
+    .contact-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-subtle);
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .meta-item img {
+      width: 14px;
+      height: 14px;
+      opacity: 0.7;
+    }
+    
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .page-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+    }
+    
+    .page-btn:hover:not(:disabled) {
+      background: var(--bg-neutral-5);
+    }
+    
+    .page-btn.active {
+      background: var(--bg-primary-20);
+      color: var(--text-primary);
+    }
+    
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .page-btn img {
+      width: 16px;
+      height: 16px;
+    }
+    
+    /* Right Column */
+    .preview-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .preview-card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Null State Styles */
+    .null-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 40px;
+      text-align: center;
+      height: 100%;
+      min-height: 400px;
+      flex: 1;
+    }
+    
+    .null-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0 0 8px 0;
+    }
+    
+    .null-desc {
+      font-size: 14px;
+      color: var(--text-subtle);
+      margin: 0;
+      max-width: 400px;
+      line-height: 20px;
+    }
+    
+    .null-action {
+      margin-top: 24px;
+    }
+    
+    /* Populated State Styles */
+    .populated-state {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 400px;
+      flex: 1;
+    }
+    
+    .preview-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+    }
+    
+    .recipient-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-primary);
+      color: white;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .recipient-chip img {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      filter: brightness(0) invert(1);
+    }
+    
+    .preview-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .placeholder-area {
+      background: var(--bg-neutral-5);
+      border: 1px dashed var(--border-medium);
+      border-radius: 8px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-nonessential);
+      font-size: 14px;
+      min-height: 200px;
+    }
+    
+    .preview-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    /* Reused AI Generate Button from activation-emails.html */
+    .ai-generate-btn {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 40px;
+      padding: 0 16px;
+      border: 1px solid var(--text-primary);
+      border-radius: 20px;
+      background: linear-gradient(-15deg, rgba(87,70,178,0.14) 14%, rgba(255,73,44,0.14) 88%), white;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: box-shadow 150ms ease;
+    }
+    
+    .ai-generate-btn:hover {
+      box-shadow: 0 2px 8px rgba(32,31,35,0.12);
+    }
+    
+    .ai-generate-btn .ai-sparkle {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(237deg) brightness(89%) contrast(91%);
+    }
+    
+    .ai-generate-btn span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 20px;
+      padding: 0 4px;
+    }
+    
+    /* Empty State for No Contacts list */
+    .empty-list-state {
+      padding: 40px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .empty-list-state p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-subtle);
+      line-height: 20px;
+      max-width: 300px;
+    }
+    
+    /* State Display Management */
+    /* State 1: default (has contacts, none selected) */
+    [data-state="default"] .state-no-contacts { display: none !important; }
+    [data-state="default"] .state-populated { display: none !important; }
+    [data-state="default"] .state-null-no-contacts { display: none !important; }
+    
+    /* State 2: selected (has contacts, one selected) */
+    [data-state="selected"] .state-no-contacts { display: none !important; }
+    [data-state="selected"] .state-null { display: none !important; }
+    [data-state="selected"] .state-null-no-contacts { display: none !important; }
+    
+    /* State 3: no contacts */
+    [data-state="no-contacts"] .state-has-contacts { display: none !important; }
+    [data-state="no-contacts"] .state-populated { display: none !important; }
+    [data-state="no-contacts"] .state-null { display: none !important; }
+  </style>
+</head>
+<body data-state="default" elv>
+
+<!-- MyG2 Global Header -->
+<header class="myg2-header">
+  <div class="myg2-header-left">
+    <svg class="back-arrow" width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
+    </svg>
+    <div class="myg2-logo">
+      <img src="../shared/elevate-lite/assets/logos/g2-logo-rorange.svg" alt="G2 Logo" />
+    </div>
+    <span style="font-size: 16px; font-weight: 600; margin-left: 4px;">MyG2</span>
+  </div>
+  <div class="myg2-header-right">
+    <div class="help-icon">?</div>
+    <div class="user-avatar">HC</div>
+  </div>
+</header>
+
+  <!-- Demo Controls -->
+  <div class="demo-controls">
+    <button class="btn btn--secondary btn--sm" onclick="setState('default')">Has contacts</button>
+    <button class="btn btn--secondary btn--sm" onclick="setState('selected')">Contact selected</button>
+    <button class="btn btn--secondary btn--sm" onclick="setState('no-contacts')">No contacts</button>
+  </div>
+
+  <div class="page-container">
+    <h1 class="page-title">Generate Emails</h1>
+
+    <div class="columns-layout">
+      <!-- Left Column -->
+      <div class="recipients-column">
+        <div class="sticky-header-card">
+          <div class="sticky-header-top">
+            <h2 class="sticky-header-title">Recipients</h2>
+            <span class="sticky-header-count" id="selected-count">(0 selected)</span>
+          </div>
+          <div class="sticky-header-controls">
+            <div class="search-input-wrapper">
+              <img src="../shared/elevate-lite/icons/ui-icon-search.svg" alt="" />
+              <input type="text" class="search-input" placeholder="Search companies and contacts" />
+            </div>
+            <button class="filters-btn" type="button">
+              <img src="../shared/elevate-lite/icons/ui-icon-filter.svg" alt="" />
+              Filters
+            </button>
+          </div>
+        </div>
+
+        <div class="content-area-card">
+          <!-- Has Contacts View -->
+          <div class="state-has-contacts" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="list-top-line">
+              <span class="showing-text">Showing 1–10 of 63 contacts</span>
+              <div class="sort-dropdown">
+                Most Recent
+                <img src="../shared/elevate-lite/icons/ui-icon-chevron-down.svg" alt="" />
+              </div>
+            </div>
+
+            <div class="contact-list">
+              <!-- Contact 1 -->
+              <label class="contact-card" id="contact-card-1">
+                <div class="checkbox-wrapper">
+                  <input type="checkbox" class="checkbox-input" id="contact-chk-1" />
+                </div>
+                <div class="contact-info">
+                  <div class="contact-name-row">
+                    <span class="contact-name">Lilly Pad (l.pad@predictive.com)</span>
+                  </div>
+                  <span class="contact-title">Chief Operating Officer</span>
+                  <div class="contact-meta">
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-company.svg" alt=""/>Predictive</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-location.svg" alt=""/>United States</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-people.svg" alt=""/>750</span>
+                  </div>
+                </div>
+              </label>
+
+              <!-- Contact 2 -->
+              <label class="contact-card" id="contact-card-2">
+                <div class="checkbox-wrapper">
+                  <input type="checkbox" class="checkbox-input" id="contact-chk-2" />
+                </div>
+                <div class="contact-info">
+                  <div class="contact-name-row">
+                    <span class="contact-name">John Doe (j.doe@predictive.com)</span>
+                    <span class="likely-visitor-badge">Likely Visitor</span>
+                  </div>
+                  <span class="contact-title">Manager, Communications</span>
+                  <div class="contact-meta">
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-company.svg" alt=""/>Predictive</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-location.svg" alt=""/>United States</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-people.svg" alt=""/>750</span>
+                  </div>
+                </div>
+              </label>
+
+              <!-- Contact 3 -->
+              <label class="contact-card" id="contact-card-3">
+                <div class="checkbox-wrapper">
+                  <input type="checkbox" class="checkbox-input" id="contact-chk-3" />
+                </div>
+                <div class="contact-info">
+                  <div class="contact-name-row">
+                    <span class="contact-name">Jane Smith (j.smith@predictive.com)</span>
+                  </div>
+                  <span class="contact-title">Chief Executive Officer &amp; Founder</span>
+                  <div class="contact-meta">
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-company.svg" alt=""/>Predictive</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-location.svg" alt=""/>United States</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-people.svg" alt=""/>750</span>
+                  </div>
+                </div>
+              </label>
+
+              <!-- Contact 4 -->
+              <label class="contact-card" id="contact-card-4">
+                <div class="checkbox-wrapper">
+                  <input type="checkbox" class="checkbox-input" id="contact-chk-4" />
+                </div>
+                <div class="contact-info">
+                  <div class="contact-name-row">
+                    <span class="contact-name">Naomi Watts (n.watts@insightwave.com)</span>
+                  </div>
+                  <span class="contact-title">VP, Marketing &amp; Co-founder</span>
+                  <div class="contact-meta">
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-company.svg" alt=""/>InsightWave</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-location.svg" alt=""/>United States</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-people.svg" alt=""/>642</span>
+                  </div>
+                </div>
+              </label>
+
+              <!-- Contact 5 -->
+              <label class="contact-card" id="contact-card-5">
+                <div class="checkbox-wrapper">
+                  <input type="checkbox" class="checkbox-input" id="contact-chk-5" />
+                </div>
+                <div class="contact-info">
+                  <div class="contact-name-row">
+                    <span class="contact-name">Marcus Chen (m.chen@algostream.com)</span>
+                  </div>
+                  <span class="contact-title">Director of Engineering</span>
+                  <div class="contact-meta">
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-company.svg" alt=""/>AlgoStream</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-location.svg" alt=""/>United States</span>
+                    <span class="meta-item"><img src="../shared/elevate-lite/icons/ui-icon-people.svg" alt=""/>1,250</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <div class="pagination">
+              <button class="page-btn" disabled>
+                <img src="../shared/elevate-lite/icons/ui-icon-chevron-left.svg" alt="Previous" />
+              </button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">4</button>
+              <button class="page-btn">5</button>
+              <button class="page-btn">
+                <img src="../shared/elevate-lite/icons/ui-icon-chevron-right.svg" alt="Next" />
+              </button>
+            </div>
+          </div>
+          
+          <!-- No Contacts View -->
+          <div class="state-no-contacts empty-list-state">
+            <p>No contacts available. Unlock companies with contacts from the Prospects tab to get started.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="preview-column">
+        <div class="preview-card">
+          <!-- Null State (Default) -->
+          <div class="null-state state-null">
+            <h2 class="null-title">Select recipients to generate emails</h2>
+            <p class="null-desc">Choose one or more contacts from the recipients list, then generate personalized emails.</p>
+          </div>
+
+          <!-- Null State (No Contacts) -->
+          <div class="null-state state-null-no-contacts">
+            <h2 class="null-title">No contacts available</h2>
+            <p class="null-desc">Unlock companies with contacts from the Prospects tab to get started.</p>
+            <div class="null-action">
+              <a href="prospects-available.html" class="btn btn--primary btn--md" style="text-decoration: none; display: inline-flex;">Go to Prospects</a>
+            </div>
+          </div>
+
+          <!-- Populated State (Selected) -->
+          <div class="populated-state state-populated">
+            <div class="preview-header">
+              <div class="recipient-chip" id="preview-recipient-chip">
+                Lilly Pad
+                <img src="../shared/elevate-lite/icons/ui-icon-close.svg" alt="Remove" onclick="setState('default')" />
+              </div>
+            </div>
+            <div class="preview-body">
+              <div class="placeholder-area">
+                Email preview will appear here after generation
+              </div>
+              <div class="preview-footer">
+                <button class="ai-generate-btn" type="button">
+                  <img class="ai-sparkle" src="../shared/elevate-lite/icons/ui-icon-ai.svg" alt="" />
+                  <span>Generate Email(s)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <a href="activation-emails.html" class="btn btn--text-neutral btn--md" style="text-decoration: none;">Cancel</a>
+    <button class="btn btn--primary btn--md" disabled>Send Email</button>
+  </div>
+
+  <script src="../prototype-state.js"></script>
+  <script>
+    function setState(state) {
+      document.body.setAttribute('data-state', state);
+      
+      const firstCheckbox = document.getElementById('contact-chk-1');
+      const firstCard = document.getElementById('contact-card-1');
+      const selectedCount = document.getElementById('selected-count');
+      
+      // Uncheck everything first
+      document.querySelectorAll('.checkbox-input').forEach(chk => chk.checked = false);
+      document.querySelectorAll('.contact-card').forEach(card => card.classList.remove('selected'));
+      
+      if (state === 'selected') {
+        firstCheckbox.checked = true;
+        firstCard.classList.add('selected');
+        selectedCount.textContent = '(1 selected)';
+        updateRecipientChip(firstCard);
+      } else if (state === 'default') {
+        selectedCount.textContent = '(0 selected)';
+      } else if (state === 'no-contacts') {
+        selectedCount.textContent = '(0 selected)';
+      }
+    }
+
+    function updateRecipientChip(cardElement) {
+      const nameText = cardElement.querySelector('.contact-name').textContent.split('(')[0].trim();
+      const chipContainer = document.getElementById('preview-recipient-chip');
+      const checkboxId = cardElement.querySelector('.checkbox-input').id;
+      if (chipContainer) {
+        chipContainer.innerHTML = `
+          ${nameText}
+          <img src="../shared/elevate-lite/icons/ui-icon-close.svg" alt="Remove" onclick="document.getElementById('${checkboxId}').click()" style="width:14px; height:14px; cursor:pointer; filter: brightness(0) invert(1);" />
+        `;
+      }
+    }
+
+    document.querySelectorAll('.checkbox-input').forEach(chk => {
+      chk.addEventListener('change', function(e) {
+        const card = this.closest('.contact-card');
+        
+        if (this.checked) {
+          card.classList.add('selected');
+          // If we're not already in selected state, switch to it
+          if (document.body.getAttribute('data-state') !== 'selected') {
+            document.body.setAttribute('data-state', 'selected');
+          }
+          updateRecipientChip(card);
+        } else {
+          card.classList.remove('selected');
+          // Check if any others are selected
+          const checkedLabels = document.querySelectorAll('.checkbox-input:checked');
+          if (checkedLabels.length === 0) {
+            document.body.setAttribute('data-state', 'default');
+          } else {
+            // Update chip to first checked
+            const firstCheckedCard = checkedLabels[0].closest('.contact-card');
+            updateRecipientChip(firstCheckedCard);
+          }
+        }
+        
+        // Update count
+        const count = document.querySelectorAll('.checkbox-input:checked').length;
+        document.getElementById('selected-count').textContent = `(${count} selected)`;
+      });
+    });
+  </script>
+</body>
+</html>

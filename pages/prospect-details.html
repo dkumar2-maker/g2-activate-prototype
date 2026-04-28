@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prospect Details — G2 Activate</title>
+  <link rel="stylesheet" href="../shared/elevate-lite/tokens/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/components/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/icons/icons.css">
+  <style>
+    body { margin: 0; font-family: var(--font-sans); }
+
+    /* MyG2 Global Header */
+    .myg2-header {
+      background: white;
+      height: 60px;
+      border-bottom: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .myg2-header-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: var(--text-default);
+      flex-shrink: 0;
+    }
+    .myg2-header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .myg2-logo {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .myg2-logo img {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+    .help-icon, .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .help-icon {
+      border: 1px solid var(--border-light);
+      color: var(--text-subtle);
+    }
+    .user-avatar {
+      background: var(--bg-primary);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Page Content Area */
+    .page-content {
+      background: var(--bg-neutral-5);
+      padding: 28px;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Back button uses Elevate btn--text from elevate.css */
+
+    /* Page Title (outside container, above it) */
+    .page-header-text {
+      margin-bottom: 24px;
+    }
+    .page-title {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 48px;
+      margin: 0;
+    }
+
+    /* Main Container Card */
+    .main-container {
+      background: white;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      padding: 24px;
+    }
+
+    /* Company Name + Visit Website (inside container) */
+    .company-name-section {
+      margin-bottom: 24px;
+    }
+    .company-name {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 48px;
+      margin: 0 0 0 0;
+    }
+    /* Visit website uses Elevate btn--text-neutral from elevate.css */
+
+    /* Company Info Card — two column layout */
+    .company-info {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 0;
+    }
+    .company-info-left {
+      flex: 1;
+      min-width: 0;
+    }
+    .company-info-right {
+      width: 322px;
+      flex-shrink: 0;
+    }
+
+    /* Chips row */
+    .chips-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    .elv-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      max-height: 24px;
+      padding: 2px 8px;
+      border: 1px solid;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      width: fit-content;
+    }
+    .elv-status-badge--neutral {
+      background: #f2f2f3;
+      border-color: #dfdfe2;
+      color: #201f23;
+    }
+
+    /* Description section */
+    .info-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      line-height: 20px;
+      margin-bottom: 4px;
+    }
+    .info-body {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-default);
+      line-height: 20px;
+    }
+    .description-section {
+      margin-bottom: 20px;
+    }
+    .products-viewed-section {
+      margin-bottom: 0;
+    }
+
+    /* Product chips */
+    .product-chips {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .product-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 12px;
+      background: var(--bg-neutral-5);
+      border: 0.5px solid var(--border-light);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-default);
+    }
+    .product-chip-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--bg-neutral-10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    /* Overview info items (right column) */
+    .overview-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .overview-item {}
+    .overview-item-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      line-height: 20px;
+      margin-bottom: 4px;
+    }
+    .overview-item-value {
+      font-size: 14px;
+      font-weight: 400;
+      color: #201f23;
+      line-height: 20px;
+    }
+
+    /* Horizontal Rule */
+    .section-divider {
+      height: 1px;
+      background: var(--border-light);
+      margin: 24px 0;
+    }
+
+    /* Contacts Section */
+    .contacts-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .contacts-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .section-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 28px;
+    }
+    .section-title-suffix {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      line-height: 28px;
+    }
+    .contacts-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    /* Buttons use Elevate classes from elevate.css (btn--, elv-btn-*) */
+
+    /* Contacts Row — 3 across */
+    .contacts-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 24px;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+    }
+    .contact-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .contact-details {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .contact-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 20px;
+    }
+    .contact-title-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-subtle);
+      line-height: 20px;
+    }
+    .contact-badges {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .contact-badge-label {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-subtle);
+      line-height: 20px;
+    }
+    .contact-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      background: var(--bg-neutral-10);
+      color: var(--text-default);
+    }
+    .copy-email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: color 150ms ease;
+    }
+    .copy-email-link:hover {
+      text-decoration: underline;
+    }
+    .copy-email-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Tech Stack Section */
+    .tech-stack-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0;
+    }
+    .tech-stack-header-left {
+      flex: 1;
+    }
+    .tech-stack-title-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 0;
+    }
+    .verified-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      line-height: 16px;
+      margin-left: 4px;
+      align-self: center;
+    }
+    .tech-stack-body {
+      margin-top: 0;
+    }
+    .tech-stack-description {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-default);
+      line-height: 20px;
+      margin-top: 4px;
+    }
+    .powered-by {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .powered-by-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      line-height: 16px;
+    }
+    .powered-by-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      background: var(--bg-neutral-5);
+      border: 0.5px solid var(--border-light);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 16px;
+    }
+
+    /* Tech Stack — Locked state with blurred content */
+    .tech-stack-locked {
+      position: relative;
+      margin-top: 24px;
+    }
+
+    .product-details-blurred {
+      filter: blur(6px);
+      opacity: 0.5;
+      pointer-events: none;
+      user-select: none;
+    }
+    .tech-stack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .category-card {
+      padding: 24px;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+    }
+    .category-card + .category-card {
+      margin-top: 24px;
+    }
+    .category-header {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      padding: 0 0 12px;
+    }
+    .category-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 24px;
+    }
+    .category-count {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      line-height: 24px;
+    }
+    .product-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      background: var(--bg-neutral-5);
+      border: 0.5px solid var(--border-light);
+      border-radius: 8px;
+    }
+    .product-row + .product-row {
+      margin-top: 8px;
+    }
+    .product-details {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .product-icon-sm {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background: var(--bg-neutral-10);
+    }
+    .product-name-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-default);
+    }
+    .product-verified {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+    }
+    .product-verified-icon {
+      width: 16px;
+      height: 16px;
+      color: var(--text-success, #0f5249);
+    }
+    .product-verified-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      line-height: 16px;
+    }
+
+    /* Tech Stack — Unlocked state */
+    .tech-stack-unlocked {
+      display: none;
+      margin-top: 24px;
+    }
+    .tech-stack-unlocked.visible {
+      display: block;
+    }
+
+    /* Top-Right Unlock Toast */
+    .toast-unlock {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: #d0f6f1;
+      border: 0.5px solid var(--border-light);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0px 8px 32px 0px rgba(32,31,35,0.12);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      transform: translateY(-100px);
+      opacity: 0;
+      transition: all 300ms ease;
+    }
+    .toast-unlock.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast-unlock .toast-icon {
+      width: 24px;
+      height: 24px;
+      color: #0f5249;
+    }
+    .toast-unlock .toast-message {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f5249;
+      line-height: 20px;
+    }
+
+    /* Success Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: white;
+      border: 0.5px solid var(--border-light);
+      border-radius: 8px;
+      padding: 16px 20px;
+      box-shadow: 0px 8px 32px 0px rgba(32,31,35,0.12);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 300ms ease;
+    }
+    .toast.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--bg-success);
+    }
+    .toast-message {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- MyG2 Global Header -->
+<header class="myg2-header">
+  <div class="myg2-header-left">
+    <svg class="back-arrow" width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
+    </svg>
+    <div class="myg2-logo">
+      <img src="../shared/elevate-lite/assets/logos/g2-logo-rorange.svg" alt="G2 Logo" />
+    </div>
+    <span style="font-size: 16px; font-weight: 600; margin-left: 4px;">MyG2</span>
+  </div>
+  <div class="myg2-header-right">
+    <div class="help-icon">?</div>
+    <div class="user-avatar">HC</div>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div elv class="page-content">
+
+  <!-- Back Button -->
+  <a href="prospects-available.html" class="btn btn--text btn--sm" style="margin-bottom: 28px; color: #5746b2;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
+    </svg>
+    Unlocked Prospects
+  </a>
+
+  <!-- Page Title -->
+  <div class="page-header-text">
+    <h1 class="page-title" id="pageTitle">Prospect Details</h1>
+  </div>
+
+  <!-- Main Container Card -->
+  <div class="main-container">
+
+    <!-- Company Name + Visit Website -->
+    <div class="company-name-section">
+      <h2 class="company-name" id="companyName">Loading...</h2>
+      <a href="#" class="btn btn--text-neutral btn--sm" id="visitWebsite" target="_blank">
+        Visit website
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 3H3V13H13V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 2H14V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 2L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Company Info — Two Column -->
+    <div class="company-info">
+
+      <!-- Left Column: Chips, Description, Products Viewed -->
+      <div class="company-info-left">
+
+        <!-- Activity + Industry Chips -->
+        <div class="chips-row" id="chipsRow">
+          <span class="elv-status-badge elv-status-badge--neutral" id="activityBadge">High Activity (99)</span>
+          <span class="elv-status-badge elv-status-badge--neutral" id="dateBadge">Mar 2026</span>
+        </div>
+
+        <!-- Description -->
+        <div class="description-section">
+          <div class="info-label">Description</div>
+          <div class="info-body" id="companyDescription">
+            Nutrien is a retail supplier of agricultural products and services in North and South America, and a global wholesale producer and marketer of all three major agricultural nutrients — nitrogen, phosphate, and potash. The company provides crop inputs, services, and solutions to help growers increase food production sustainably. Nutrien operates through a network of over 2,000 retail locations, serving agricultural markets with innovative digital tools and agronomic expertise.
+          </div>
+        </div>
+
+        <!-- Products Viewed -->
+        <div class="products-viewed-section">
+          <div class="info-label">Products Viewed</div>
+          <div class="product-chips" id="productsViewed">
+            <span class="product-chip">
+              <span class="product-chip-icon">📈</span>
+              Demandbase One
+            </span>
+            <span class="product-chip">
+              <span class="product-chip-icon">✨</span>
+              6sense Revenue Marketing
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Company Metadata -->
+      <div class="company-info-right">
+        <div class="overview-items">
+          <div class="overview-item">
+            <div class="overview-item-label">Company Size</div>
+            <div class="overview-item-value" id="companySize">25.9k</div>
+          </div>
+          <div class="overview-item">
+            <div class="overview-item-label">Est. Annual Revenue</div>
+            <div class="overview-item-value" id="companyRevenue">$27B</div>
+          </div>
+          <div class="overview-item">
+            <div class="overview-item-label">Headquarters Location</div>
+            <div class="overview-item-value" id="companyLocation">Saskatoon, Canada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Divider ─── -->
+    <div class="section-divider"></div>
+
+    <!-- Key Contacts Section -->
+    <div class="contacts-section">
+      <div class="contacts-header">
+        <div class="contacts-title-row">
+          <span class="section-title" id="contactsSectionTitle">Nutrien Contacts</span>
+          <span class="section-title-suffix" id="contactsCount">(3)</span>
+        </div>
+        <div class="contacts-actions">
+          <button class="btn btn--secondary btn--md elv-btn-base elv-btn-md elv-btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 3V17M10 17L5 12M10 17L15 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Download CSV
+          </button>
+          <button class="btn btn--primary btn--md elv-btn-base elv-btn-md elv-btn-primary">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M14.3054 2.23741C14.2636 2.25927 14.2346 2.33462 14.1766 2.48533L13.6316 3.90227C13.5291 4.1689 13.4778 4.30223 13.398 4.41437C13.3274 4.51376 13.2405 4.60059 13.1411 4.67126C13.029 4.751 12.8957 4.80228 12.629 4.90483L11.212 5.4498C11.0613 5.50777 10.986 5.53675 10.9641 5.57859C10.9452 5.61485 10.9452 5.65809 10.9641 5.69436C10.986 5.7362 11.0613 5.76518 11.212 5.82314L12.629 6.36811C12.8957 6.47066 13.029 6.52194 13.1411 6.60168C13.2405 6.67235 13.3274 6.75919 13.398 6.85858C13.4778 6.97072 13.5291 7.10403 13.6316 7.37067L14.1766 8.78762C14.2346 8.93832 14.2636 9.01367 14.3054 9.03553C14.3417 9.05447 14.3849 9.05447 14.4212 9.03553C14.463 9.01367 14.492 8.93832 14.55 8.78762L15.095 7.37067C15.1975 7.10405 15.2488 6.97071 15.3285 6.85858C15.3992 6.75919 15.486 6.67235 15.5854 6.60168C15.6976 6.52194 15.8309 6.47066 16.0975 6.36811L17.5145 5.82314C17.6652 5.76518 17.7406 5.7362 17.7625 5.69436C17.7814 5.65809 17.7814 5.61485 17.7625 5.57859C17.7406 5.53675 17.6652 5.50777 17.5145 5.4498L16.0975 4.90483C15.8309 4.80228 15.6976 4.751 15.5854 4.67126C15.486 4.60059 15.3992 4.51376 15.3285 4.41437C15.2488 4.30223 15.1975 4.16891 15.095 3.90227L14.55 2.48533C14.492 2.33462 14.463 2.25927 14.4212 2.23741C14.3849 2.21847 14.3417 2.21847 14.3054 2.23741Z"/><path fill="currentColor" d="M7.72595 6.7432C7.65901 6.77817 7.61264 6.89874 7.51989 7.13986L6.64789 9.40697C6.4838 9.83359 6.40176 10.0469 6.27417 10.2263C6.16109 10.3853 6.02215 10.5243 5.86312 10.6374C5.68369 10.7649 5.47037 10.847 5.04374 11.0111L2.77657 11.883C2.53543 11.9758 2.41486 12.0221 2.37988 12.0891C2.34957 12.1471 2.34957 12.2163 2.37988 12.2743C2.41486 12.3413 2.53543 12.3876 2.77657 12.4804L5.04374 13.3523C5.47037 13.5164 5.68369 13.5984 5.86312 13.726C6.02215 13.8391 6.16109 13.978 6.27417 14.1371C6.40176 14.3165 6.4838 14.5298 6.64789 14.9564L7.5199 17.2235C7.61264 17.4647 7.65901 17.5852 7.72595 17.6202C7.78392 17.6505 7.85312 17.6505 7.91109 17.6202C7.97803 17.5852 8.02441 17.4647 8.11715 17.2235L8.98914 14.9564C9.15323 14.5298 9.23528 14.3165 9.36287 14.1371C9.47595 13.978 9.61489 13.8391 9.77392 13.726C9.95335 13.5984 10.1667 13.5164 10.5933 13.3523L12.8605 12.4804C13.1016 12.3876 13.2222 12.3413 13.2572 12.2743C13.2875 12.2163 13.2875 12.1471 13.2572 12.0891C13.2222 12.0221 13.1016 11.9758 12.8605 11.883L10.5933 11.0111C10.1667 10.847 9.95335 10.7649 9.77392 10.6374C9.61489 10.5243 9.47595 10.3853 9.36287 10.2263C9.23528 10.0469 9.15323 9.8336 8.98914 9.40697L8.11715 7.13986C8.02441 6.89874 7.97803 6.77817 7.91109 6.7432C7.85312 6.71289 7.78392 6.71289 7.72595 6.7432Z"/></svg>
+            Generate Emails
+          </button>
+        </div>
+      </div>
+
+      <!-- 3-Column Contacts Row -->
+      <div class="contacts-row" id="contactsRow">
+        <!-- Contacts populated by JS -->
+      </div>
+    </div>
+
+    <!-- ─── Divider ─── -->
+    <div class="section-divider"></div>
+
+    <!-- Technology Stack Section -->
+    <div class="tech-stack-section">
+      <div class="tech-stack-header">
+        <div class="tech-stack-header-left">
+          <div class="tech-stack-title-row">
+            <span class="section-title" id="techStackSectionTitle">Nutrien Tech Stack</span>
+            <span class="section-title-suffix" id="techStackCount">(16)</span>
+            <span class="verified-label">Verified Dec 2025</span>
+          </div>
+          <div class="tech-stack-description">Products in active use at this company, detected from public signals. Unlocked tech stacks will automatically enrich generated emails.</div>
+          <div class="powered-by">
+            <span class="powered-by-text">Powered by</span>
+            <span class="powered-by-badge">🎯 BuyerCaddy</span>
+          </div>
+        </div>
+        <button class="btn btn--primary btn--md elv-btn-base elv-btn-md elv-btn-primary" id="unlockTechStackBtn">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 8H6C4.89543 8 4 8.89543 4 10V16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V10C16 8.89543 15.1046 8 14 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 8V6C6 4.67392 6.52678 3.40215 7.46447 2.46447C8.40215 1.52678 9.67392 1 11 1C12.3261 1 13.5979 1.52678 14.5355 2.46447C15.4732 3.40215 16 4.67392 16 6V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Unlock for 10 credits
+        </button>
+      </div>
+
+      <!-- Locked State: blurred content (populated by JS) -->
+      <div class="tech-stack-locked" id="techStackLocked">
+        <div class="tech-stack-grid" id="techStackGridLocked">
+          <!-- Populated by JS with blurred product names -->
+        </div>
+      </div>
+
+      <!-- Unlocked State (hidden by default, shown after unlock) -->
+      <div class="tech-stack-unlocked" id="techStackUnlocked">
+        <div class="tech-stack-grid" id="techStackGrid">
+          <!-- Populated by JS on unlock -->
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main-container -->
+
+</div><!-- end page-content -->
+
+<!-- Unlock Toast (Top Right) -->
+<div class="toast-unlock" id="unlockToast">
+  <svg class="toast-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+    <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="toast-message" id="unlockToastMessage">Company successfully unlocked</span>
+</div>
+
+<!-- Success Toast -->
+<div class="toast" id="successToast">
+  <svg class="toast-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+    <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="toast-message" id="toastMessage">Email copied!</span>
+</div>
+
+<!-- State Management -->
+<script src="../prototype-state.js"></script>
+
+<!-- Page Logic -->
+<script>
+(function() {
+  // Get company ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const companyId = urlParams.get('id');
+
+  if (!companyId) {
+    window.location.href = 'prospects-available.html';
+    return;
+  }
+
+  // Find company in state
+  function findCompanyInState(id) {
+    const state = G2ActivateState.get();
+    const fromUnlocked = state.unlockedCompanies.find(c => c.id === id);
+    if (fromUnlocked) return fromUnlocked;
+    const fromAvailable = state.availableCompanies.find(c => c.id === id);
+    return fromAvailable || null;
+  }
+
+  const stateCompany = findCompanyInState(companyId);
+
+  if (!stateCompany) {
+    window.location.href = 'prospects-available.html';
+    return;
+  }
+
+  G2ActivateState.markViewed(companyId);
+
+  // Generate contacts based on company size and departments (max 3)
+  function generateContacts(company) {
+    const firstNames = ['Sarah', 'Michael', 'Jennifer', 'David', 'Emily', 'James', 'Lisa', 'Robert', 'Maria', 'John'];
+    const lastNames = ['Chen', 'Johnson', 'Williams', 'Brown', 'Martinez', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Wilson'];
+    const titles = {
+      'c-level': ['Chief Executive Officer', 'Chief Operating Officer', 'Chief Marketing Officer', 'Chief Revenue Officer'],
+      'vp': ['VP of Sales', 'VP of Marketing', 'VP of Business Development', 'VP of Customer Success'],
+      'director': ['Director of Sales', 'Director of Marketing', 'Director of Operations', 'Director of Product'],
+      'manager': ['Sales Manager', 'Marketing Manager', 'Account Manager', 'Product Manager']
+    };
+    const avatarColors = ['#7C7FF2', '#4A9FF5', '#FF8374', '#50C9A3', '#FFA94D', '#9B59B6', '#E74C3C', '#3498DB'];
+
+    const contacts = [];
+    // Always show exactly 3 contacts, never more
+    const numContacts = 3;
+
+    for (let i = 0; i < numContacts; i++) {
+      const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+      const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+      const seniority = company.managementLevels?.[i % company.managementLevels.length] || 'vp';
+      const titleOptions = titles[seniority] || titles['vp'];
+      const title = titleOptions[Math.floor(Math.random() * titleOptions.length)];
+      const department = company.departments?.[i % company.departments.length] || 'sales';
+      const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${company.domain}`;
+
+      contacts.push({
+        name: `${firstName} ${lastName}`,
+        title: title,
+        email: email,
+        department: department.charAt(0).toUpperCase() + department.slice(1),
+        seniority: seniority.toUpperCase().replace('-', ' '),
+        avatarColor: avatarColors[i % avatarColors.length]
+      });
+    }
+
+    return contacts;
+  }
+
+  // Generate products viewed based on industry
+  function generateProductsViewed(company) {
+    const products = {
+      'Software Publishers': [
+        { name: 'Demandbase One', icon: '📈' },
+        { name: '6sense Revenue Marketing', icon: '✨' }
+      ],
+      'Financial Services': [
+        { name: 'Salesforce Financial Services', icon: '💰' },
+        { name: 'ZoomInfo', icon: '🔍' }
+      ],
+      'Healthcare Technology': [
+        { name: 'Salesforce Health Cloud', icon: '⚕️' },
+        { name: 'Epic', icon: '🏥' }
+      ],
+      'default': [
+        { name: 'Salesforce', icon: '☁️' },
+        { name: 'HubSpot', icon: '🎯' }
+      ]
+    };
+
+    return products[company.industry] || products['default'];
+  }
+
+  // Generate tech stack based on industry
+  function generateTechStack(company) {
+    const industryStacks = {
+      'Software Publishers': {
+        'CRM': [
+          { name: 'Salesforce Sales Cloud', verifiedDate: 'Dec 2025' },
+          { name: 'HubSpot CRM', verifiedDate: 'Nov 2025' }
+        ],
+        'Sales Engagement': [
+          { name: 'Outreach', verifiedDate: 'Dec 2025' },
+          { name: 'SalesLoft', verifiedDate: 'Nov 2025' }
+        ],
+        'Marketing Automation': [
+          { name: 'Marketo Engage', verifiedDate: 'Dec 2025' },
+          { name: 'HubSpot Marketing Hub', verifiedDate: 'Nov 2025' }
+        ],
+        'BI & Analytics': [
+          { name: 'Tableau', verifiedDate: 'Dec 2025' },
+          { name: 'Looker', verifiedDate: 'Oct 2025' }
+        ]
+      },
+      'Financial Services': {
+        'CRM': [
+          { name: 'Salesforce Financial Services Cloud', verifiedDate: 'Dec 2025' }
+        ],
+        'Analytics': [
+          { name: 'Tableau', verifiedDate: 'Dec 2025' },
+          { name: 'Power BI', verifiedDate: 'Nov 2025' }
+        ],
+        'Compliance': [
+          { name: 'OneTrust', verifiedDate: 'Dec 2025' }
+        ]
+      },
+      'default': {
+        'CRM': [
+          { name: 'Salesforce Sales Cloud', verifiedDate: 'Dec 2025' },
+          { name: 'HubSpot CRM', verifiedDate: 'Nov 2025' }
+        ],
+        'Sales Intelligence': [
+          { name: 'ZoomInfo', verifiedDate: 'Dec 2025' },
+          { name: 'LinkedIn Sales Navigator', verifiedDate: 'Nov 2025' }
+        ],
+        'Marketing Automation': [
+          { name: 'Marketo Engage', verifiedDate: 'Dec 2025' }
+        ]
+      }
+    };
+
+    const categories = industryStacks[company.industry] || industryStacks['default'];
+    const totalProducts = Object.values(categories).reduce((sum, products) => sum + products.length, 0);
+
+    return {
+      totalProducts: totalProducts,
+      verifiedDate: 'Dec 2025',
+      categories: categories
+    };
+  }
+
+  // Build complete company object with generated data
+  const company = {
+    name: stateCompany.name,
+    website: `https://${stateCompany.domain}`,
+    activityLevel: stateCompany.activityLevel,
+    activityScore: stateCompany.activityScore || 85,
+    activityMonth: 'Apr 2026',
+    industry: stateCompany.industry,
+    employees: stateCompany.employees,
+    revenue: stateCompany.revenue,
+    location: stateCompany.location,
+    description: stateCompany.description,
+    productsViewed: generateProductsViewed(stateCompany),
+    contacts: generateContacts(stateCompany),
+    techStack: generateTechStack(stateCompany)
+  };
+
+  // Check if tech stack already unlocked
+  const state = G2ActivateState.get();
+  const isTechStackUnlocked = state.unlockedTechStacks && state.unlockedTechStacks.includes(companyId);
+
+  // ── Populate Page ──
+
+  // Page title
+  document.getElementById('pageTitle').textContent = `Prospect Details: ${company.name}`;
+
+  // Company name + website
+  document.getElementById('companyName').textContent = company.name;
+  document.getElementById('visitWebsite').href = company.website || '#';
+
+  // Activity + date badges (separate neutral status badges)
+  document.getElementById('activityBadge').textContent = `${company.activityLevel} Activity (${company.activityScore})`;
+  document.getElementById('dateBadge').textContent = company.activityMonth;
+
+  // Section titles with company name
+  document.getElementById('contactsSectionTitle').textContent = `${company.name} Contacts`;
+  document.getElementById('techStackSectionTitle').textContent = `${company.name} Tech Stack`;
+
+  // Description
+  document.getElementById('companyDescription').textContent = company.description;
+
+  // Products viewed
+  const productsContainer = document.getElementById('productsViewed');
+  productsContainer.innerHTML = company.productsViewed.map(p =>
+    `<span class="product-chip"><span class="product-chip-icon">${p.icon}</span>${p.name}</span>`
+  ).join('');
+
+  // Right column metadata
+  document.getElementById('companySize').textContent = company.employees;
+  document.getElementById('companyRevenue').textContent = company.revenue;
+  document.getElementById('companyLocation').textContent = company.location;
+
+  // Contacts count (always 3)
+  document.getElementById('contactsCount').textContent = `(3)`;
+
+  // Render contacts as 3-column row
+  const contactsRow = document.getElementById('contactsRow');
+  contactsRow.innerHTML = company.contacts.map(contact => {
+    const initials = contact.name.split(' ').map(n => n[0]).join('').toUpperCase();
+    const badgesHtml = [];
+    if (contact.department) {
+      badgesHtml.push(`<span class="contact-badge-label">${contact.department}</span>`);
+    }
+    if (contact.seniority) {
+      badgesHtml.push(`<span class="contact-badge">${contact.seniority}</span>`);
+    }
+    if (contact.department) {
+      badgesHtml.push(`<span class="contact-badge">${contact.department}</span>`);
+    }
+
+    return `
+      <div class="contact-card">
+        <div class="contact-avatar" style="background-color: ${contact.avatarColor}">${initials}</div>
+        <div class="contact-details">
+          <div class="contact-text">
+            <div class="contact-name">${contact.name}</div>
+            <div class="contact-title-text">${contact.title}</div>
+          </div>
+          ${badgesHtml.length ? `<div class="contact-badges">${badgesHtml.join('')}</div>` : ''}
+          <button class="copy-email-link" data-email="${contact.email}">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 5.5V3.5C5.5 2.94772 5.94772 2.5 6.5 2.5H12.5C13.0523 2.5 13.5 2.94772 13.5 3.5V9.5C13.5 10.0523 13.0523 10.5 12.5 10.5H10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="2.5" y="5.5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            Copy email
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Tech stack count
+  document.getElementById('techStackCount').textContent = `(${company.techStack.totalProducts})`;
+
+  // Populate locked tech stack (with blur)
+  populateLockedTechStack();
+
+  // Handle tech stack state
+  if (isTechStackUnlocked) {
+    showUnlockedTechStack();
+  }
+
+  function populateLockedTechStack() {
+    const gridLocked = document.getElementById('techStackGridLocked');
+    const categories = company.techStack.categories;
+    const entries = Object.entries(categories);
+    const midpoint = Math.ceil(entries.length / 2);
+    const leftEntries = entries.slice(0, midpoint);
+    const rightEntries = entries.slice(midpoint);
+
+    function renderColumnLocked(columnEntries) {
+      return columnEntries.map(([category, products]) => `
+        <div class="category-card">
+          <div class="category-header">
+            <span class="category-name">${category}</span>
+            <span class="category-count">(${products.length})</span>
+          </div>
+          ${products.map(product => `
+            <div class="product-row">
+              <div class="product-details product-details-blurred">
+                <div class="product-icon-sm"></div>
+                <span class="product-name-text">${product.name}</span>
+              </div>
+              <span class="product-verified-text">Verified ${product.verifiedDate}</span>
+            </div>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+
+    gridLocked.innerHTML = `
+      <div>${renderColumnLocked(leftEntries)}</div>
+      <div>${renderColumnLocked(rightEntries)}</div>
+    `;
+  }
+
+  // Unlock button
+  document.getElementById('unlockTechStackBtn').addEventListener('click', function() {
+    const currentState = G2ActivateState.get();
+
+    if (currentState.credits < 10) {
+      showToast('Insufficient credits');
+      return;
+    }
+
+    // Deduct credits
+    currentState.credits -= 10;
+    if (!currentState.unlockedTechStacks) {
+      currentState.unlockedTechStacks = [];
+    }
+    currentState.unlockedTechStacks.push(companyId);
+    G2ActivateState.save(currentState);
+
+    showUnlockedTechStack();
+    G2ActivateState.updateCreditDisplay();
+    showToast('Tech stack unlocked! 10 credits used.');
+  });
+
+  function showUnlockedTechStack() {
+    document.getElementById('techStackLocked').style.display = 'none';
+    document.getElementById('unlockTechStackBtn').style.display = 'none';
+
+    const unlockedDiv = document.getElementById('techStackUnlocked');
+    unlockedDiv.classList.add('visible');
+
+    const grid = document.getElementById('techStackGrid');
+    const categories = company.techStack.categories;
+    const entries = Object.entries(categories);
+    const midpoint = Math.ceil(entries.length / 2);
+    const leftEntries = entries.slice(0, midpoint);
+    const rightEntries = entries.slice(midpoint);
+
+    function renderColumn(columnEntries) {
+      return columnEntries.map(([category, products]) => `
+        <div class="category-card">
+          <div class="category-header">
+            <span class="category-name">${category}</span>
+            <span class="category-count">(${products.length})</span>
+          </div>
+          ${products.map(product => `
+            <div class="product-row">
+              <div class="product-details">
+                <div class="product-icon-sm"></div>
+                <span class="product-name-text">${product.name}</span>
+              </div>
+              <span class="product-verified-text">Verified ${product.verifiedDate}</span>
+            </div>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+
+    grid.innerHTML = `
+      <div>${renderColumn(leftEntries)}</div>
+      <div>${renderColumn(rightEntries)}</div>
+    `;
+  }
+
+  // Copy email handlers
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.copy-email-link');
+    if (!btn) return;
+    const email = btn.dataset.email;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(() => showToast('Email copied!'));
+    } else {
+      showToast('Email copied!');
+    }
+  });
+
+  // Check for unlock toast
+  const unlockToastData = sessionStorage.getItem('unlockToast');
+  if (unlockToastData) {
+    try {
+      const data = JSON.parse(unlockToastData);
+      const toast = document.getElementById('unlockToast');
+      document.getElementById('unlockToastMessage').textContent = `${data.name} successfully unlocked`;
+      toast.classList.add('visible');
+      setTimeout(() => toast.classList.remove('visible'), 4000);
+      sessionStorage.removeItem('unlockToast');
+    } catch(e) {}
+  }
+
+  // Toast
+  function showToast(message) {
+    const toast = document.getElementById('successToast');
+    document.getElementById('toastMessage').textContent = message;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 3000);
+  }
+
+})();
+</script>
+
+</body>
+</html>

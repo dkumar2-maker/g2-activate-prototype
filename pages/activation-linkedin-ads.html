@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Ads Activation — G2 Activate</title>
+  <link rel="stylesheet" href="../shared/elevate-lite/tokens/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/components/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/icons/icons.css">
+  <style>
+    body { margin: 0; font-family: var(--font-sans); }
+
+    /* MyG2 Global Header */
+    .myg2-header {
+      background: white;
+      height: 60px;
+      border-bottom: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .myg2-header-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: var(--text-default);
+      flex-shrink: 0;
+    }
+    .myg2-header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .myg2-logo {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .myg2-logo img {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+    .help-icon, .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .help-icon {
+      border: 1px solid var(--border-light);
+      color: var(--text-subtle);
+    }
+    .user-avatar {
+      background: var(--bg-primary);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 6px;
+    }
+    .breadcrumb-link,
+        .breadcrumb-link:link,
+        .breadcrumb-link:visited {
+          color: var(--text-nonessential);
+          text-decoration: none;
+          font-size: 12px;
+          line-height: 16px;
+          transition: color 150ms ease;
+        }
+    .breadcrumb-link:hover {
+      color: var(--text-default);
+    }
+    .breadcrumb-link.current {
+      color: var(--text-default);
+    }
+    .breadcrumb-separator {
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+          color: var(--text-nonessential);
+        }
+
+    /* Page Header */
+    .page-header {
+      background: white;
+      border-bottom: 0.5px solid var(--border-medium);
+      padding: 24px 24px 0;
+    }
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 36px;
+    }
+    .info-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--text-subtle);
+      cursor: help;
+      position: relative;
+    }
+
+    /* Tooltip */
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+    .tooltip-content {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-neutral-100);
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 20px;
+      width: 320px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+      z-index: 1000;
+    }
+    .tooltip-content::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--bg-neutral-100);
+    }
+    .tooltip-wrapper:hover .tooltip-content {
+      opacity: 1;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .status-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-light);
+    }
+    .manage-plan-link {
+      color: var(--text-link);
+      text-decoration: underline;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .renewal-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      white-space: nowrap;
+    }
+    .credits-display {
+      color: var(--text-default);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .credits-value {
+      font-weight: 600;
+      color: var(--text-default);
+    }
+
+    /* Primary Tabs */
+    .primary-tabs {
+      display: flex;
+    }
+    .primary-tab {
+      padding: 0 24px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 150ms ease;
+      cursor: pointer;
+    }
+    .primary-tab:link,
+    .primary-tab:visited {
+      color: var(--text-subtle);
+    }
+    .primary-tab:hover {
+      color: var(--text-default);
+    }
+    .primary-tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--bg-primary);
+    }
+    .primary-tab.active:link,
+    .primary-tab.active:visited {
+      color: var(--text-primary);
+    }
+
+    /* Secondary Tabs */
+    .secondary-tabs {
+      display: flex;
+      border-bottom: 0.5px solid var(--border-medium);
+      padding-top: 16px;
+    }
+    .secondary-tab {
+      padding: 0 24px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 150ms ease;
+      cursor: pointer;
+    }
+    .secondary-tab:link,
+    .secondary-tab:visited {
+      color: var(--text-subtle);
+    }
+    .secondary-tab:hover {
+      color: var(--text-default);
+    }
+    .secondary-tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--bg-primary);
+    }
+    .secondary-tab.active:link,
+    .secondary-tab.active:visited {
+      color: var(--text-primary);
+    }
+
+    /* Content Area */
+    .content-area {
+      background: var(--bg-neutral-5);
+      padding: 24px;
+      min-height: calc(100vh - 60px - 140px);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+    .section-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 36px;
+    }
+    .section-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .section-description {
+      font-size: 14px;
+      color: var(--text-subtle);
+      line-height: 20px;
+      margin-bottom: 24px;
+    }
+
+    /* Null State Card */
+    .null-state-card {
+      background: white;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 72px 24px;
+      text-align: center;
+    }
+    .null-state-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 483px;
+    }
+    .null-state-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      line-height: 28px;
+    }
+    .null-state-description {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      line-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- MyG2 Global Header -->
+<header class="myg2-header">
+  <div class="myg2-header-left">
+    <svg class="back-arrow" width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
+    </svg>
+    <div class="myg2-logo">
+      <img src="../shared/elevate-lite/assets/logos/g2-logo-rorange.svg" alt="G2 Logo" />
+    </div>
+    <span style="font-size: 16px; font-weight: 600; margin-left: 4px;">MyG2</span>
+  </div>
+  <div class="myg2-header-right">
+    <div class="help-icon">?</div>
+    <div class="user-avatar">HC</div>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div elv>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+      <a href="#" class="breadcrumb-link">Home</a>
+      <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+      </svg>
+      <a href="#" class="breadcrumb-link">Buyer Activity</a>
+      <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+      </svg>
+      <span class="breadcrumb-link current">G2 Activate</span>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="page-title-row">
+      <h1 class="page-title">G2 Activate</h1>
+      <div class="tooltip-wrapper">
+        <svg class="info-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 7V10M10 13H10.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="tooltip-content">
+          Transform Buyer Intent data into ready-to-use leads, making it easier to act on high-intent prospects without requiring extra tools or setup.
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Row with Credits -->
+    <div class="status-row">
+      <div class="credits-display">
+        <span>My credits: <span class="credits-value" data-credits>150</span></span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2C11.111 2 12.1491 2.20841 13.1143 2.625C14.0795 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92046 17.375 6.88574C17.7916 7.85094 18 8.88899 18 10C18 11.0972 17.7917 12.1323 17.375 13.1045C16.9583 14.0766 16.3853 14.9272 15.6562 15.6562C14.9271 16.3854 14.0795 16.9583 13.1143 17.375C12.1491 17.7916 11.111 18 10 18C8.90278 18 7.86773 17.7917 6.89551 17.375C5.9234 16.9583 5.07285 16.3853 4.34375 15.6562C3.61465 14.9272 3.04166 14.0766 2.625 13.1045C2.20833 12.1323 2 11.0972 2 10C2 8.88899 2.20841 7.85094 2.625 6.88574C3.04167 5.92046 3.61458 5.07292 4.34375 4.34375C5.07285 3.61465 5.9234 3.04166 6.89551 2.625C7.86773 2.20833 8.90278 2 10 2ZM8.79199 8.5H5L8.08301 10.708L6.91699 14.5L10 12.1455L13.083 14.5L11.917 10.708L15 8.5H11.208L10 4.5L8.79199 8.5Z" fill="#5746B2"/>
+        </svg>
+      </div>
+      <div id="renewal-divider" class="status-divider" style="display: none;"></div>
+      <span id="renewal-text" class="renewal-text" style="display: none;"></span>
+      <div class="status-divider"></div>
+      <a id="manage-plan-link" href="../pages/manage-plan-active.html" class="manage-plan-link">Manage Plan</a>
+    </div>
+
+    <!-- Primary Tabs -->
+    <nav class="primary-tabs">
+      <a href="prospects-available.html" class="primary-tab">Prospects</a>
+      <a href="activation-emails.html" class="primary-tab active">Activation</a>
+    </nav>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area">
+
+    <!-- Secondary Tabs -->
+    <nav class="secondary-tabs">
+      <a href="activation-emails.html" class="secondary-tab">Emails</a>
+      <a href="activation-linkedin-ads.html" class="secondary-tab active">LinkedIn Ads</a>
+    </nav>
+
+    <!-- Section Header -->
+    <div style="margin-top: 24px;">
+      <div class="section-header">
+        <h2 class="section-title">LinkedIn Ads Activation</h2>
+        <a href="#" class="section-link">
+          Open in Campaign Manager
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 10H15M15 10L10 5M15 10L10 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      <p class="section-description">Leverage unlocked prospects to build and grow your LinkedIn matched audience.</p>
+    </div>
+
+    <!-- Null State: Connect LinkedIn Ads -->
+    <div class="null-state-card">
+      <div class="null-state-content">
+        <h3 class="null-state-title">Connect LinkedIn Ads</h3>
+        <p class="null-state-description">Connect your LinkedIn Ads account to start syncing audiences automatically.</p>
+      </div>
+      <button class="btn btn--primary btn--md" onclick="alert('LinkedIn Ads connection flow would open here.')">
+        <img src="../shared/elevate-lite/icons/ui-icon-link.svg" alt="" style="width: 20px; height: 20px; filter: brightness(0) invert(1);" />
+        <span>Connect LinkedIn Ads</span>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="../prototype-state.js"></script>
+<script>
+(function() {
+  var plan = G2ActivateState.getPlan();
+  var link = document.getElementById('manage-plan-link');
+  if (link) link.href = plan.status === 'active' ? '../pages/manage-plan-active.html' : '../pages/manage-plan-inactive.html';
+  if (plan.status === 'active' && plan.renewDate) {
+    var d = new Date(plan.renewDate + 'T00:00:00');
+    var txt = 'Next ' + plan.monthlyCredits.toLocaleString() + ' credits: ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    var div = document.getElementById('renewal-divider');
+    var span = document.getElementById('renewal-text');
+    if (div && span) { span.textContent = txt; div.style.display = ''; span.style.display = ''; }
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+[submodule "shared/elevate-lite"]
+	path = shared/elevate-lite
+	url = https://github.com/schildsG2/elevate-lite.git

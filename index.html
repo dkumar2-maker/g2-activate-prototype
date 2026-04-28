@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G2 Activate Prototype — Design Explorations</title>
+  <link rel="stylesheet" href="shared/elevate-lite/tokens/elevate.css">
+  <link rel="stylesheet" href="shared/elevate-lite/components/elevate.css">
+  <link rel="stylesheet" href="shared/elevate-lite/icons/icons.css">
+  <style>
+    body { margin: 0; }
+
+    /* Breadcrumbs */
+    .elv-breadcrumbs {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .elv-breadcrumb-item {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .elv-breadcrumb-link {
+      color: #4c4b53;
+      text-decoration: none;
+      font-size: 12px;
+      line-height: 16px;
+      transition: color 150ms ease;
+    }
+    .elv-breadcrumb-link:hover {
+      color: #201f23;
+    }
+    .elv-breadcrumb-link--current {
+      color: #84838a;
+      pointer-events: none;
+    }
+    .elv-breadcrumb-separator {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      fill: #6f6d78;
+    }
+
+    /* Page row hover */
+    .page-row:hover .card-arrow {
+      color: var(--text-primary);
+      transform: translateX(3px);
+    }
+
+    .card-arrow {
+      width: 20px;
+      height: 20px;
+      color: var(--text-subtle);
+      transition: all 150ms ease;
+    }
+
+    /* Base card (featured) hover */
+    .base-card:hover {
+      background: #111827 !important;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+<div elv class="elv-bg-neutral-5 elv-min-h-screen">
+
+  <!-- Header -->
+  <header class="elv-bg-neutral-0 elv-border-b elv-border-light" style="border-bottom-width: 0.5px;">
+    <div class="elv-max-w-7xl elv-w-full md:elv-w-5/6 elv-mx-auto elv-pt-12 elv-pb-8 elv-px-3">
+      <nav aria-label="Breadcrumb" class="elv-mb-3">
+        <ol class="elv-breadcrumbs" role="list">
+          <li class="elv-breadcrumb-item">
+            <a href="index.html" class="elv-breadcrumb-link">G2 Activate</a>
+            <svg class="elv-breadcrumb-separator" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z"/>
+            </svg>
+          </li>
+          <li class="elv-breadcrumb-item">
+            <span class="elv-breadcrumb-link elv-breadcrumb-link--current" aria-current="page">G2 Activate Prototype</span>
+          </li>
+        </ol>
+      </nav>
+      <h1 class="elv-text-4xl elv-font-extrabold elv-text-default elv-mb-3 elv-leading-tight">
+        G2 Activate <span style="color: #5746b2;">Prototype</span>
+      </h1>
+      <p class="elv-text-base elv-text-subtle elv-max-w-xl elv-leading-relaxed">
+        Comprehensive prototype for G2 Activate — demonstrating complete user flows, dashboard interactions, and purchasing experiences.
+      </p>
+    </div>
+  </header>
+
+  <div class="elv-max-w-7xl elv-w-full md:elv-w-5/6 elv-mx-auto elv-py-12 elv-px-3">
+
+    <!-- Base Prototype (Featured) -->
+    <a href="./pages/prospects-available.html"
+       class="base-card elv-block elv-rounded-md elv-p-8 elv-no-underline elv-transition-all elv-mb-8 elv-flex elv-items-center elv-gap-8 elv-flex-wrap"
+       style="background: #1F2937; text-decoration: none;">
+      <div class="elv-flex-1">
+        <h2 class="elv-text-xl elv-font-bold elv-mb-2" style="color: #FFFFFF;">
+          Full Prototype
+        </h2>
+        <p class="elv-text-sm elv-max-w-md" style="color: #9CA3AF; line-height: 1.5;">
+          Complete G2 Activate experience with navigation, dashboard views, purchasing flows, and interactive components.
+        </p>
+      </div>
+      <div class="elv-flex-shrink-0">
+        <span class="btn btn--primary btn--md">
+          Go to Prototype →
+        </span>
+      </div>
+    </a>
+
+    <!-- Pages Section -->
+    <div class="elv-mb-4">
+      <h2 class="elv-text-lg elv-font-bold elv-text-default elv-mb-6">
+        Pages
+      </h2>
+
+      <div class="elv-grid elv-grid-cols-1 elv-gap-4">
+
+        <!-- Available Prospects -->
+        <a href="./pages/prospects-available.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Available Prospects</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Filterable table of prospects with multi-select comboboxes, checkbox selection, and bulk unlock flow.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Unlocked Prospects -->
+        <a href="./pages/prospects-unlocked.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Unlocked Prospects</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Table of unlocked companies with search, date filters, and export contacts CTA. Includes empty state.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Prospect Details -->
+        <a href="./pages/prospect-details.html?id=predictive-001"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Prospect Details</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Company detail view with contacts row, tech stack (locked/unlocked states), and company description.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- LinkedIn Ads Activation -->
+        <a href="./pages/activation-linkedin-ads.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">LinkedIn Ads Activation</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Activation tab with metrics cards, recommended actions, matched contacts, and audience reach estimates.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- LinkedIn Ads Connected -->
+        <a href="./pages/activation-linkedin-ads-connected.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">LinkedIn Ads Connected</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Connected state of the LinkedIn Ads activation page with active campaign data.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Email Activation -->
+        <a href="./pages/activation-emails.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Email Activation</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Email campaign activation with metrics, email generation, and campaign management.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Generate Emails -->
+        <a href="./pages/activation-generate-emails.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Generate Emails</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">AI-powered email generation flow for unlocked prospects.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Manage Plan — Active -->
+        <a href="./pages/manage-plan-active.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Manage Plan — Active</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Active subscription management with plan details, billing, and credit balance.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Manage Plan — Inactive -->
+        <a href="./pages/manage-plan-inactive.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Manage Plan — Inactive</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Inactive plan landing page with subscription options.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Manage Plan — Subscribe -->
+        <a href="./pages/manage-plan-subscribe.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Manage Plan — Subscribe</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Subscription checkout flow with plan selection and payment.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <!-- Manage Plan — Purchase Credits -->
+        <a href="./pages/manage-plan-purchase-credits.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Manage Plan — Purchase Credits</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Credit purchase flow with quantity selection and payment.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="elv-mb-4 elv-mt-12">
+      <h2 class="elv-text-lg elv-font-bold elv-text-default elv-mb-6">
+        Purchase Credits Explorations
+      </h2>
+
+      <div class="elv-grid elv-grid-cols-1 elv-gap-4">
+
+        <a href="./pages/manage-plan-purchase-credits.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Manage Plan — Purchase Credits</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Credit purchase flow with quantity selection and payment.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <a href="./pages/manage-plan-purchase-credits-02.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Radio Select Bulk Credits 1</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Credit purchase exploration with radio select for bulk credit tiers.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+        <a href="./pages/manage-plan-purchase-credits-03.html"
+           class="page-row elv-block elv-bg-neutral-0 elv-border elv-border-light elv-rounded-md elv-p-6 elv-no-underline elv-transition-all hover:elv-shadow-2 hover:elv-border-medium"
+           style="text-decoration: none;">
+          <div class="elv-flex elv-items-start elv-justify-between elv-gap-6">
+            <div class="elv-flex-1">
+              <h3 class="elv-text-lg elv-font-semibold elv-text-default elv-mb-2">Radio Select Bulk Credits 2</h3>
+              <p class="elv-text-sm elv-text-subtle elv-leading-relaxed">Second credit purchase exploration with alternative radio select layout.</p>
+            </div>
+            <svg class="card-arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="elv-mt-16 elv-pt-6 elv-text-xs elv-text-nonessential">
+      <span class="elv-text-nonessential">G2 Activate Prototype</span>
+    </footer>
+
+  </div>
+
+</div>
+
+</body>
+</html>

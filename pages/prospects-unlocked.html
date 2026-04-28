@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlocked Prospects — G2 Activate</title>
+  <link rel="stylesheet" href="../shared/elevate-lite/tokens/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/components/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/icons/icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+    body { margin: 0; font-family: var(--font-sans); }
+
+    /* MyG2 Global Header */
+    .myg2-header {
+      background: white;
+      height: 60px;
+      border-bottom: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .myg2-header-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: var(--text-default);
+      flex-shrink: 0;
+    }
+    .myg2-header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .myg2-logo {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .myg2-logo img {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+    .help-icon, .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .help-icon {
+      border: 1px solid var(--border-light);
+      color: var(--text-subtle);
+    }
+    .user-avatar {
+      background: var(--bg-primary);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 6px;
+    }
+    .breadcrumb-link,
+        .breadcrumb-link:link,
+        .breadcrumb-link:visited {
+          color: var(--text-nonessential);
+          text-decoration: none;
+          font-size: 12px;
+          line-height: 16px;
+          transition: color 150ms ease;
+        }
+    .breadcrumb-link:hover {
+      color: var(--text-default);
+    }
+    .breadcrumb-link.current {
+      color: var(--text-default);
+    }
+    .breadcrumb-separator {
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+          color: var(--text-nonessential);
+        }
+
+    /* Page Header */
+    .page-header {
+      background: white;
+      border-bottom: 0.5px solid var(--border-medium);
+      padding: 24px 24px 0;
+    }
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 36px;
+    }
+    .info-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--text-subtle);
+      cursor: help;
+      position: relative;
+    }
+
+    /* Tooltip */
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+    .tooltip-content {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-neutral-100);
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 20px;
+      width: 320px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+      z-index: 1000;
+    }
+    .tooltip-content::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--bg-neutral-100);
+    }
+    .tooltip-wrapper:hover .tooltip-content {
+      opacity: 1;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .status-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-light);
+    }
+    .manage-plan-link {
+      color: var(--text-link);
+      text-decoration: underline;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .renewal-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      white-space: nowrap;
+    }
+    .credits-display {
+      color: var(--text-default);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .credits-value {
+      font-weight: 600;
+      color: var(--text-default);
+    }
+
+    /* Primary Tabs */
+    .primary-tabs {
+      display: flex;
+    }
+    .primary-tab {
+      padding: 0 24px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 150ms ease;
+      cursor: pointer;
+    }
+    .primary-tab:link,
+    .primary-tab:visited {
+      color: var(--text-subtle);
+    }
+    .primary-tab:hover {
+      color: var(--text-default);
+    }
+    .primary-tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--bg-primary);
+    }
+    .primary-tab.active:link,
+    .primary-tab.active:visited {
+      color: var(--text-primary);
+    }
+
+    /* Content Area */
+    .content-area {
+      background: var(--bg-neutral-5);
+      padding: 24px;
+      min-height: calc(100vh - 60px - 140px);
+    }
+
+    /* Secondary Tabs */
+    .secondary-tabs {
+      display: flex;
+      border-bottom: 0.5px solid var(--border-medium);
+      padding-top: 16px;
+    }
+    .secondary-tab {
+      padding: 0 24px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 150ms ease;
+      cursor: pointer;
+    }
+    .secondary-tab:link,
+    .secondary-tab:visited {
+      color: var(--text-subtle);
+    }
+    .secondary-tab:hover {
+      color: var(--text-default);
+    }
+    .secondary-tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--bg-primary);
+    }
+    .secondary-tab.active:link,
+    .secondary-tab.active:visited {
+      color: var(--text-primary);
+    }
+
+    /* Companies Card */
+    .companies-card {
+      background: white;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      overflow: hidden;
+      width: 100%;
+      margin-top: 24px;
+    }
+    .content-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 24px 16px;
+    }
+    .content-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .content-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 36px;
+    }
+    .content-count {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      line-height: 28px;
+    }
+    .content-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Search Input — Elevate search component */
+    .elv-search-input {
+      position: relative;
+      width: 212px;
+    }
+    .elv-search-input__field {
+      width: 100%;
+      height: 32px;
+      padding: 0 32px 0 36px;
+      background: var(--bg-neutral-5);
+      border: 0.5px solid var(--border-medium);
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: var(--text-default);
+      transition: background 150ms ease, outline 150ms ease;
+    }
+    .elv-search-input__field::placeholder {
+      color: var(--text-nonessential);
+    }
+    .elv-search-input__field:hover:not(:disabled) {
+      background: var(--bg-neutral-10);
+    }
+    .elv-search-input__field:focus {
+      outline: 3px solid var(--palette-purple-40);
+      outline-offset: 1px;
+    }
+    .elv-search-input__icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-nonessential);
+      pointer-events: none;
+      font-size: 18px;
+    }
+    .elv-search-input__clear {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: var(--text-nonessential);
+      cursor: pointer;
+      padding: 2px;
+      border-radius: 4px;
+      display: none;
+      font-size: 18px;
+    }
+    .elv-search-input__clear:hover {
+      background: var(--bg-neutral-20);
+      color: var(--text-default);
+    }
+    .elv-search-input--has-value .elv-search-input__clear {
+      display: block;
+    }
+
+    /* Date Filters */
+    .date-filters {
+      display: flex;
+      border: 0.5px solid var(--border-medium);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .date-filter {
+      padding: 8px 12px;
+      height: 32px;
+      border: none;
+      background: var(--bg-neutral-5);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+      cursor: pointer;
+      transition: all 150ms ease;
+      display: flex;
+      align-items: center;
+    }
+    .date-filter:hover:not(.active) {
+      background: var(--bg-neutral-10);
+    }
+    .date-filter.active {
+      background: #ebe9f6;
+      color: var(--text-default);
+    }
+
+    /* Table Container */
+    .table-container {
+      background: white;
+    }
+    .prospects-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: 0.5px solid var(--border-medium);
+    }
+    .prospects-table th {
+      background: var(--bg-neutral-5);
+      padding: 14px 24px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 20px;
+      border-bottom: 0.5px solid var(--border-medium);
+    }
+    .prospects-table td {
+      padding: 14px 24px;
+      font-size: 14px;
+      color: var(--text-default);
+      line-height: 20px;
+      border-bottom: 0.5px solid var(--border-light);
+      height: 48px;
+    }
+    .prospects-table tr:last-child td {
+      border-bottom: none;
+    }
+    .prospects-table tr:hover td:not(.unlock-date-cell):not(.details-cell) {
+      background: var(--bg-neutral-5);
+    }
+
+    /* Unviewed row: semi-bold all text except intent badge */
+    .prospects-table tr.unviewed td {
+      font-weight: 600;
+    }
+    .prospects-table tr.unviewed .intent-badge {
+      font-weight: 600;
+    }
+
+    /* Green unviewed indicator dot */
+    .unviewed-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1FA896;
+      display: inline-block;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    .unlock-date-inner {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Unlock Date column (far left) */
+    .prospects-table th.unlock-date-cell,
+    .prospects-table td.unlock-date-cell {
+      padding: 14px 16px;
+      width: 140px;
+    }
+
+    /* Details column (far right) — faint gray with left border, no header text */
+    .prospects-table th.details-cell,
+    .prospects-table td.details-cell {
+      background: var(--bg-neutral-5);
+      border-left: 0.5px solid var(--border-medium);
+      width: 110px;
+    }
+
+
+
+    /* Intent Badge — matches Available Prospects */
+    .intent-badge {
+      display: inline-flex;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+    }
+    .intent-badge--high {
+      background: #d0f6f1;
+      color: #0f5249;
+    }
+    .intent-badge--medium {
+      background: #e6f4ff;
+      color: #1e5a8e;
+    }
+    .intent-badge--low {
+      background: var(--bg-neutral-10);
+      color: var(--text-subtle);
+    }
+
+    /* Company Name */
+    .company-name {
+      font-weight: 600;
+      color: var(--text-default);
+    }
+
+
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      cursor: pointer;
+      transition: background 150ms ease;
+      border: none;
+      text-decoration: none;
+    }
+    .btn--sm {
+      padding: 6px 12px;
+      font-size: 14px;
+      height: 32px;
+      gap: 4px;
+    }
+    .btn--primary {
+      background: var(--bg-primary);
+      color: white;
+    }
+    .btn--primary:hover:not(:disabled) {
+      background: #6b59c3;
+    }
+    .btn--primary:active:not(:disabled) {
+      background: #4a3a99;
+    }
+    .btn--primary:focus:not(:disabled) {
+      box-shadow: 0px 0px 0px 0.5px rgb(255, 255, 255), 0px 0px 0px 3px rgb(195, 189, 229);
+      outline: none;
+    }
+
+    /* Empty State */
+    .empty-state-container {
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+    .empty-state-icon-circle {
+      width: 100px;
+      height: 100px;
+      box-sizing: border-box;
+      padding: 20px;
+      background: #dedaf1;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0;
+    }
+    .empty-state-icon-circle img {
+      width: 60px;
+      height: 60px;
+    }
+    .empty-state-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+    }
+    .empty-state-description {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-subtle);
+      margin: 0;
+    }
+    .empty-state-container .btn--primary,
+    .empty-state-container .btn--primary:link,
+    .empty-state-container .btn--primary:visited {
+      color: white;
+    }
+    
+    /* Search no-results */
+    .no-search-results {
+      padding: 48px 24px;
+      text-align: center;
+      font-size: 16px;
+      color: var(--text-subtle);
+    }
+
+    /* Pagination (Elevate component) */
+    .pagination-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      border-top: 0.5px solid var(--border-light);
+    }
+
+    .elv-pagination {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .elv-pagination__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      padding: 8px 12px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
+      color: var(--text-subtle);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .elv-pagination__btn:hover:not(:disabled):not(.elv-pagination__btn--current) {
+      background: var(--bg-primary-20);
+      border-color: var(--border-focus);
+    }
+
+    .elv-pagination__btn:focus {
+      outline: 3px solid var(--palette-purple-40);
+      outline-offset: 2px;
+    }
+
+    .elv-pagination__btn:disabled {
+      cursor: not-allowed;
+      background: var(--bg-neutral-10);
+      color: var(--text-disabled);
+    }
+
+    .elv-pagination__btn--current {
+      background: var(--bg-primary-20);
+      border-color: var(--border-focus);
+      color: var(--text-subtle);
+      cursor: default;
+    }
+
+    .elv-pagination__btn--nav {
+      gap: 4px;
+      background: var(--bg-neutral-10);
+      border-color: var(--border-neutral);
+    }
+
+    .elv-pagination__btn--nav .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    .elv-pagination__ellipsis {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      padding: 8px 12px;
+      color: var(--text-nonessential);
+      font-size: 14px;
+      font-weight: 600;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- MyG2 Global Header -->
+<header class="myg2-header">
+  <div class="myg2-header-left">
+    <svg class="back-arrow" width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
+    </svg>
+    <div class="myg2-logo">
+      <img src="../shared/elevate-lite/assets/logos/g2-logo-rorange.svg" alt="G2 Logo" />
+    </div>
+    <span style="font-size: 16px; font-weight: 600; margin-left: 4px;">MyG2</span>
+  </div>
+  <div class="myg2-header-right">
+    <div class="help-icon">?</div>
+    <div class="user-avatar">HC</div>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div elv>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+      <a href="#" class="breadcrumb-link">Home</a>
+      <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+      </svg>
+      <a href="#" class="breadcrumb-link">Buyer Activity</a>
+      <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+      </svg>
+      <span class="breadcrumb-link current">G2 Activate</span>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="page-title-row">
+      <h1 class="page-title">G2 Activate</h1>
+      <div class="tooltip-wrapper">
+        <svg class="info-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 7V10M10 13H10.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="tooltip-content">
+          Transform Buyer Intent data into ready-to-use leads, making it easier to act on high-intent prospects without requiring extra tools or setup.
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Row with Credits -->
+    <div class="status-row">
+      <div class="credits-display">
+        <span>My credits: <span class="credits-value" data-credits>150</span></span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2C11.111 2 12.1491 2.20841 13.1143 2.625C14.0795 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92046 17.375 6.88574C17.7916 7.85094 18 8.88899 18 10C18 11.0972 17.7917 12.1323 17.375 13.1045C16.9583 14.0766 16.3853 14.9272 15.6562 15.6562C14.9271 16.3854 14.0795 16.9583 13.1143 17.375C12.1491 17.7916 11.111 18 10 18C8.90278 18 7.86773 17.7917 6.89551 17.375C5.9234 16.9583 5.07285 16.3853 4.34375 15.6562C3.61465 14.9272 3.04166 14.0766 2.625 13.1045C2.20833 12.1323 2 11.0972 2 10C2 8.88899 2.20841 7.85094 2.625 6.88574C3.04167 5.92046 3.61458 5.07292 4.34375 4.34375C5.07285 3.61465 5.9234 3.04166 6.89551 2.625C7.86773 2.20833 8.90278 2 10 2ZM8.79199 8.5H5L8.08301 10.708L6.91699 14.5L10 12.1455L13.083 14.5L11.917 10.708L15 8.5H11.208L10 4.5L8.79199 8.5Z" fill="#5746B2"/>
+        </svg>
+      </div>
+      <div id="renewal-divider" class="status-divider" style="display: none;"></div>
+      <span id="renewal-text" class="renewal-text" style="display: none;"></span>
+      <div class="status-divider"></div>
+      <a id="manage-plan-link" href="manage-plan-active.html" class="manage-plan-link">Manage Plan</a>
+    </div>
+
+    <!-- Primary Tabs -->
+    <nav class="primary-tabs">
+      <a href="prospects-available.html" class="primary-tab active">Prospects</a>
+      <a href="activation-emails.html" class="primary-tab">Activation</a>
+    </nav>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area">
+
+    <!-- Secondary Tabs -->
+    <nav class="secondary-tabs">
+      <a href="prospects-available.html" class="secondary-tab">Available Prospects</a>
+      <a href="prospects-unlocked.html" class="secondary-tab active">Unlocked Prospects</a>
+    </nav>
+
+    <!-- Companies Card -->
+    <div class="companies-card">
+
+      <!-- Content Header -->
+      <div class="content-header" id="cardHeader">
+        <div class="content-header-left">
+          <h2 class="content-title">Companies</h2>
+          <span class="content-count" id="companyCount">(0)</span>
+        </div>
+        <div class="content-header-right">
+          <div class="elv-search-input" id="searchWrapper">
+            <span class="material-symbols-outlined elv-search-input__icon">search</span>
+            <input type="search" id="searchInput" class="elv-search-input__field" placeholder="Search..." aria-label="Search" autocomplete="off">
+            <button class="elv-search-input__clear material-symbols-outlined" id="searchClear" aria-label="Clear search">close</button>
+          </div>
+          <div class="date-filters">
+            <button class="date-filter">7 Days</button>
+            <button class="date-filter active">30 Days</button>
+            <button class="date-filter">90 Days</button>
+            <button class="date-filter">1 Year</button>
+            <button class="date-filter">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 4px;">
+                <path d="M6 2V4M14 2V4M3 8H17M5 4H15C16.1046 4 17 4.89543 17 6V16C17 17.1046 16.1046 18 15 18H5C3.89543 18 3 17.1046 3 16V6C3 4.89543 3.89543 4 5 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Custom
+            </button>
+           </div>
+          <button class="btn btn--primary btn--sm" style="color: white;">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 3V13M10 13L5 8M10 13L15 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 17H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Export All Contacts
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="table-container" id="tableContainer">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- State Management -->
+<script src="../prototype-state.js"></script>
+
+<script>
+(function() {
+  const container = document.getElementById('tableContainer');
+  const cardHeader = document.getElementById('cardHeader');
+  const searchInput = document.getElementById('searchInput');
+  const searchWrapper = document.getElementById('searchWrapper');
+  const searchClear = document.getElementById('searchClear');
+  const companyCount = document.getElementById('companyCount');
+
+  let currentPage = 1;
+  const ROWS_PER_PAGE = 20;
+
+  // Format Date Helper
+  function formatDate(isoString) {
+    if (!isoString) return 'N/A';
+    var date = new Date(isoString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  // Get badge class based on level
+  function getIntentBadgeClass(level) {
+    var l = (level || '').toLowerCase();
+    if (l === 'high') return 'intent-badge--high';
+    if (l === 'medium') return 'intent-badge--medium';
+    return 'intent-badge--low';
+  }
+
+  // Generate page numbers with truncation (Elevate pattern)
+  function generatePageNumbers(current, total) {
+    const pages = [];
+    pages.push(1);
+    if (current > 3) pages.push('...');
+    for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) {
+      pages.push(i);
+    }
+    if (current < total - 2) pages.push('...');
+    if (total > 1) pages.push(total);
+    return pages;
+  }
+
+  // Render function
+  function renderView(resetPage) {
+    if (resetPage !== false) currentPage = 1;
+
+    const allUnlocked = G2ActivateState.getUnlockedCompanies();
+
+    // Empty state (no companies unlocked at all)
+    if (allUnlocked.length === 0) {
+      companyCount.textContent = '(0)';
+      container.innerHTML = `
+        <div class="empty-state-container">
+          <div class="empty-state-icon-circle">
+            <img src="../references-icons/pictogram-magnify.svg" alt="" width="60" height="60">
+          </div>
+          <h3 class="empty-state-title">No unlocked prospects found.</h3>
+          <p class="empty-state-description">Unlock prospects on through Available Prospects with credits.</p>
+          <a href="prospects-available.html" class="btn btn--primary" style="color: white;">Go to Available Prospects</a>
+        </div>
+      `;
+      return;
+    }
+
+    const query = (searchInput.value || '').toLowerCase().trim();
+
+    // Filter based on search query
+    const filteredCompanies = allUnlocked.filter(c => {
+      const name = (c.name || '').toLowerCase();
+      const industry = (c.industry || '').toLowerCase();
+      const location = (c.location || '').toLowerCase();
+      return name.includes(query) || industry.includes(query) || location.includes(query);
+    });
+
+    companyCount.textContent = '(' + filteredCompanies.length + ')';
+
+    // Search Empty State
+    if (filteredCompanies.length === 0) {
+      container.innerHTML = '<div class="no-search-results">No companies match your search.</div>';
+      return;
+    }
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredCompanies.length / ROWS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = totalPages;
+    const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
+    const endIndex = startIndex + ROWS_PER_PAGE;
+    const paginatedCompanies = filteredCompanies.slice(startIndex, endIndex);
+
+    // Render Table
+    var rows = paginatedCompanies.map(function(company) {
+      var viewed = G2ActivateState.isViewed(company.id);
+      var rowClass = viewed ? '' : ' class="unviewed"';
+      var dot = viewed ? '' : '<span class="unviewed-dot"></span>';
+      return '<tr' + rowClass + '>' +
+        '<td class="unlock-date-cell"><div class="unlock-date-inner">' + dot + formatDate(company.unlockedDate) + '</div></td>' +
+        '<td><span class="company-name">' + company.name + '</span></td>' +
+        '<td><span class="intent-badge ' + getIntentBadgeClass(company.activityLevel) + '">' + company.activityLevel + '</span></td>' +
+        '<td>' + company.employees + '</td>' +
+        '<td>' + company.location + '</td>' +
+        '<td style="text-align: right;">' + Math.min(company.contacts, 3) + '</td>' +
+        '<td class="details-cell"><a href="prospect-details.html?id=' + company.id + '" class="btn btn--text btn--sm" style="color: #5746b2;">Details <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M13.125 10.75H4V9.25H13.125L8.9375 5.0625L10 4L16 10L10 16L8.9375 14.9375L13.125 10.75Z"/></svg></a></td>' +
+      '</tr>';
+    }).join('');
+
+    var tableHtml = '<table class="prospects-table">' +
+      '<thead><tr>' +
+        '<th class="unlock-date-cell">Unlock Date</th>' +
+        '<th>Company</th>' +
+        '<th>Intent Level</th>' +
+        '<th>Company Size</th>' +
+        '<th>Headquarters Location</th>' +
+        '<th style="text-align: right;">Contacts</th>' +
+        '<th class="details-cell"></th>' +
+      '</tr></thead>' +
+      '<tbody>' + rows + '</tbody>' +
+    '</table>';
+
+    // Pagination controls (Elevate component)
+    var paginationHtml = '';
+    if (totalPages > 1) {
+      paginationHtml = '<div class="pagination-wrapper">' +
+        '<nav class="elv-pagination" role="navigation" aria-label="Pagination">' +
+          '<button class="elv-pagination__btn elv-pagination__btn--nav" data-action="prev" aria-label="Previous page"' + (currentPage === 1 ? ' disabled' : '') + '>' +
+            '<span class="material-symbols-outlined">chevron_left</span>' +
+          '</button>' +
+          generatePageNumbers(currentPage, totalPages).map(function(page) {
+            if (page === '...') {
+              return '<span class="elv-pagination__ellipsis" aria-hidden="true">…</span>';
+            }
+            var isCurrent = page === currentPage;
+            return '<button class="elv-pagination__btn' + (isCurrent ? ' elv-pagination__btn--current' : '') + '"' +
+              ' data-page="' + page + '"' +
+              ' aria-label="' + (isCurrent ? 'Page' : 'Go to page') + ' ' + page + '"' +
+              (isCurrent ? ' aria-current="page"' : '') + '>' +
+              page +
+            '</button>';
+          }).join('') +
+          '<button class="elv-pagination__btn elv-pagination__btn--nav" data-action="next" aria-label="Next page"' + (currentPage === totalPages ? ' disabled' : '') + '>' +
+            '<span class="material-symbols-outlined">chevron_right</span>' +
+          '</button>' +
+        '</nav>' +
+      '</div>';
+    }
+
+    container.innerHTML = tableHtml + paginationHtml;
+    attachPaginationListeners();
+  }
+
+  // Pagination event listeners
+  function attachPaginationListeners() {
+    const paginationNav = document.querySelector('.elv-pagination');
+    if (!paginationNav) return;
+
+    paginationNav.addEventListener('click', function(e) {
+      const btn = e.target.closest('button');
+      if (!btn || btn.disabled) return;
+
+      if (btn.dataset.action === 'prev') {
+        if (currentPage > 1) {
+          currentPage--;
+          renderView(false);
+        }
+      } else if (btn.dataset.action === 'next') {
+        currentPage++;
+        renderView(false);
+      } else if (btn.dataset.page) {
+        currentPage = parseInt(btn.dataset.page, 10);
+        renderView(false);
+      }
+    });
+  }
+
+  // Initial render
+  renderView();
+
+  searchInput.addEventListener('input', () => {
+    if (searchInput.value) {
+      searchWrapper.classList.add('elv-search-input--has-value');
+    } else {
+      searchWrapper.classList.remove('elv-search-input--has-value');
+    }
+    renderView();
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchWrapper.classList.remove('elv-search-input--has-value');
+    searchInput.focus();
+    renderView();
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      searchWrapper.classList.remove('elv-search-input--has-value');
+      renderView();
+    }
+  });
+
+  window.addEventListener('g2ActivateStateChange', () => {
+    renderView();
+  });
+
+  const dateFilters = document.querySelectorAll('.date-filter');
+  dateFilters.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      dateFilters.forEach(f => f.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+    });
+  });
+})();
+</script>
+<script>
+(function() {
+  var plan = G2ActivateState.getPlan();
+  var link = document.getElementById('manage-plan-link');
+  if (link) link.href = plan.status === 'active' ? 'manage-plan-active.html' : 'manage-plan-inactive.html';
+  if (plan.status === 'active' && plan.renewDate) {
+    var d = new Date(plan.renewDate + 'T00:00:00');
+    var txt = 'Next ' + plan.monthlyCredits.toLocaleString() + ' credits: ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    var div = document.getElementById('renewal-divider');
+    var span = document.getElementById('renewal-text');
+    if (div && span) { span.textContent = txt; div.style.display = ''; span.style.display = ''; }
+  }
+})();
+</script>
+
+</body>
+</html>

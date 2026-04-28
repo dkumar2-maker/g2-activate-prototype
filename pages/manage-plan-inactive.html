@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Plan — G2 Activate</title>
+  <link rel="stylesheet" href="../shared/elevate-lite/tokens/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/components/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/icons/icons.css">
+  <style>
+    body { margin: 0; font-family: var(--font-sans); }
+
+    /* MyG2 Global Header */
+    .myg2-header {
+      background: white;
+      height: 60px;
+      border-bottom: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .myg2-header-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: var(--text-default);
+      flex-shrink: 0;
+    }
+    .myg2-header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .myg2-logo {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .myg2-logo img {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+    .help-icon, .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .help-icon {
+      border: 1px solid var(--border-light);
+      color: var(--text-subtle);
+    }
+    .user-avatar {
+      background: var(--bg-primary);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 6px;
+    }
+    .breadcrumb-link,
+        .breadcrumb-link:link,
+        .breadcrumb-link:visited {
+          color: var(--text-nonessential);
+          text-decoration: none;
+          font-size: 12px;
+          line-height: 16px;
+          transition: color 150ms ease;
+        }
+    .breadcrumb-link:hover {
+      color: var(--text-default);
+    }
+    .breadcrumb-link.current {
+      color: var(--text-default);
+    }
+    .breadcrumb-separator {
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+          color: var(--text-nonessential);
+        }
+
+    /* Page Header */
+    .page-header {
+      padding: 24px 0;
+    }
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 36px;
+      margin: 0;
+    }
+
+    /* Content Area */
+    .content-area {
+      background: var(--bg-neutral-5);
+      padding: 0 24px 24px;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Plan Status Bar */
+    .plan-status-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .status-credits {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 24px;
+    }
+    .status-separator {
+      color: #dfdfe2;
+      font-size: 12px;
+    }
+    .status-renewal {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+    }
+    .status-manage-link {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-link);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Cards Layout */
+    .cards-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .content-card {
+      background: white;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      padding: 24px;
+      border-bottom: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-header-title-group {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .card-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 28px;
+    }
+
+    .card-subtitle {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      margin: 0;
+      line-height: 28px;
+    }
+
+    .status-badge {
+      background: #f2f2f3;
+      border: 0.5px solid #dfdfe2;
+      border-radius: 8px;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #eb2000;
+    }
+
+    .status-badge-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      line-height: 20px;
+    }
+
+    .card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-body--left {
+      gap: 16px;
+    }
+
+    .card-body--right {
+      gap: 24px;
+    }
+
+    .plan-name {
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 48px;
+    }
+
+    .plan-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .plan-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 24px;
+      margin: 0;
+    }
+
+    .plan-price-period {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      margin: 0;
+    }
+
+    .plan-description {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      margin: 0;
+      line-height: 28px;
+    }
+
+    .plan-features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .checklist-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 24px;
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .checklist-icon {
+      flex-shrink: 0;
+    }
+
+    .checklist-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-subtle);
+      line-height: 20px;
+    }
+
+    .btn {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    .btn--primary {
+      background: var(--bg-primary);
+      color: white;
+    }
+
+    .btn--primary:hover {
+      background: #45388f; /* P120 */
+    }
+
+    .btn--primary:focus {
+      box-shadow: 0px 0px 0px 0.5px white, 0px 0px 0px 3px rgb(195, 189, 229);
+      outline: none;
+    }
+
+    .btn--md {
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      border-radius: 100px;
+      min-height: 40px;
+    }
+    
+    .card-action {
+      margin-top: 0;
+    }
+
+    /* ── Subscription Calculator ── */
+    .calc-section {
+      margin-top: 24px;
+    }
+
+    .calc-card {
+      background: white;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      padding: 24px;
+    }
+
+    .calc-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0 0 4px 0;
+      line-height: 28px;
+    }
+
+    .calc-layout {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .calc-slider-side {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calc-rec-side {
+      width: 340px;
+      flex-shrink: 0;
+    }
+
+    /* Step indicator */
+    .calc-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .calc-step-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-default);
+      margin: 16px 0 6px 0;
+      line-height: 24px;
+    }
+
+    /* Slider track */
+    .calc-slider-wrap {
+      position: relative;
+      width: 100%;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .calc-slider-track {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 40px;
+      transform: translateY(-50%);
+      background: var(--bg-neutral-10);
+      border-radius: 10px;
+      overflow: hidden;
+      outline: 0px solid transparent;
+      outline-offset: 2px;
+      transition: outline-color 150ms cubic-bezier(0.4, 0, 0.2, 1), outline-width 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .calc-slider-wrap:focus-within .calc-slider-track {
+      outline-color: var(--palette-purple-40);
+      outline-width: 3px;
+    }
+
+    .calc-slider-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: var(--bg-primary);
+      border-radius: 10px 0 0 10px;
+      transition: width 60ms ease-out;
+    }
+
+    .calc-slider-fill::after {
+      content: '';
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2px;
+      height: 20px;
+      background: rgba(255,255,255,0.35);
+      border-radius: 1px;
+    }
+
+    .calc-slider-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+      -webkit-appearance: none;
+    }
+
+    .calc-slider-wrap:focus-within .calc-slider-track {
+      outline-color: var(--palette-purple-40);
+    }
+
+    .calc-slider-value {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-default);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 1;
+      transition: left 60ms ease-out, color 60ms ease-out;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .calc-slider-value--inside {
+      color: white;
+    }
+
+    .calc-slider-bounds {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Threshold marker */
+    .calc-threshold {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 1px;
+      height: 24px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .calc-threshold-line {
+      width: 1px;
+      height: 100%;
+      background: rgba(0,0,0,0.15);
+    }
+
+    .calc-threshold-label {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-nonessential);
+      white-space: nowrap;
+    }
+
+    /* Recommendation card */
+    .calc-rec-card {
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: background 300ms ease, border-color 300ms ease;
+      min-height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calc-rec-card--bulk {
+      background: var(--bg-neutral-5);
+      border: 1.5px solid var(--border-light);
+    }
+
+    .calc-rec-card--subscription {
+      background: var(--palette-purple-10);
+      border: 1.5px solid var(--palette-purple-40);
+    }
+
+    .calc-rec-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
+      line-height: 16px;
+      transition: color 300ms ease;
+    }
+
+    .calc-rec-card--bulk .calc-rec-eyebrow {
+      color: var(--text-nonessential);
+    }
+
+    .calc-rec-card--subscription .calc-rec-eyebrow {
+      color: var(--text-primary);
+    }
+
+    .calc-rec-plan-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .calc-rec-plan-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 36px;
+    }
+
+    .calc-rec-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .calc-rec-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 24px;
+    }
+
+    .calc-rec-price-unit {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      margin: 0;
+    }
+
+    .calc-rec-features {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .calc-rec-feature {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-subtle);
+      line-height: 18px;
+    }
+
+    .calc-rec-feature-icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    .calc-rec-cta {
+      margin-top: auto;
+    }
+
+    .calc-rec-cta .btn {
+      width: 100%;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<!-- MyG2 Global Header -->
+<header class="myg2-header">
+  <div class="myg2-header-left">
+    <svg class="back-arrow" width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
+    </svg>
+    <div class="myg2-logo">
+      <img src="../shared/elevate-lite/assets/logos/g2-logo-rorange.svg" alt="G2 Logo" />
+    </div>
+    <span style="font-size: 16px; font-weight: 600; margin-left: 4px;">MyG2</span>
+  </div>
+  <div class="myg2-header-right">
+    <div class="help-icon">?</div>
+    <div class="user-avatar">HC</div>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div elv>
+
+  <!-- Content Area -->
+  <div class="content-area">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs">
+        <a href="#" class="breadcrumb-link">Home</a>
+        <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+        </svg>
+        <a href="#" class="breadcrumb-link">Buyer Activity</a>
+        <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+        </svg>
+        <a href="prospects-available.html" class="breadcrumb-link">G2 Activate</a>
+        <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+        </svg>
+        <span class="breadcrumb-link current">Manage Plan</span>
+      </nav>
+
+      <!-- Page Title -->
+      <div class="page-title-row">
+        <h1 class="page-title">Manage Plan</h1>
+      </div>
+    </div>
+
+    <!-- Plan Status Bar -->
+    <div class="plan-status-bar">
+      <div class="status-credits">
+        <span>My credits: <span data-credits>0</span></span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2C11.111 2 12.1491 2.20841 13.1143 2.625C14.0795 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92046 17.375 6.88574C17.7916 7.85094 18 8.88899 18 10C18 11.0972 17.7917 12.1323 17.375 13.1045C16.9583 14.0766 16.3853 14.9272 15.6562 15.6562C14.9271 16.3854 14.0795 16.9583 13.1143 17.375C12.1491 17.7916 11.111 18 10 18C8.90278 18 7.86773 17.7917 6.89551 17.375C5.9234 16.9583 5.07285 16.3853 4.34375 15.6562C3.61465 14.9272 3.04166 14.0766 2.625 13.1045C2.20833 12.1323 2 11.0972 2 10C2 8.88899 2.20841 7.85094 2.625 6.88574C3.04167 5.92046 3.61458 5.07292 4.34375 4.34375C5.07285 3.61465 5.9234 3.04166 6.89551 2.625C7.86773 2.20833 8.90278 2 10 2ZM8.79199 8.5H5L8.08301 10.708L6.91699 14.5L10 12.1455L13.083 14.5L11.917 10.708L15 8.5H11.208L10 4.5L8.79199 8.5Z" fill="#5746B2"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Cards Layout -->
+    <div class="cards-layout">
+      
+      <!-- Left Card: Subscription -->
+      <div class="content-card">
+        <div class="card-header">
+          <div class="card-header-title-group">
+            <h2 class="card-title">Subscription</h2>
+          </div>
+          <div class="status-badge">
+            <div class="status-badge-dot"></div>
+            <span class="status-badge-label">Inactive</span>
+          </div>
+        </div>
+        <div class="card-body card-body--left">
+          <div>
+            <h3 class="plan-name">G2 Activate Pro</h3>
+            <div class="plan-price-row">
+              <span class="plan-price">$499</span>
+              <span class="plan-price-period">/month</span>
+            </div>
+          </div>
+          <div class="plan-features">
+            <h4 class="checklist-label">What you'll get:</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">5,000 credits per month</span>
+              </li>
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">Supplement with pay-as-you-go credits</span>
+              </li>
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">Access to Intent Data from G2</span>
+              </li>
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">Identify in-market buyers</span>
+              </li>
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">Cancel anytime</span>
+              </li>
+            </ul>
+          </div>
+          <div class="card-action">
+            <button id="subscribe-btn" class="btn btn--primary btn--md">Subscribe now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Card: Pay as you go -->
+      <div class="content-card">
+        <div class="card-header">
+          <div class="card-header-title-group">
+            <h2 class="card-title">Pay as you go</h2>
+          </div>
+        </div>
+        <div class="card-body card-body--right">
+          <div>
+            <h3 class="plan-name">Credit Packs</h3>
+            <div class="plan-price-row">
+              <span class="plan-price">$0.10</span>
+              <span class="plan-price-period">/credit</span>
+            </div>
+          </div>
+          <div class="plan-features">
+            <h4 class="checklist-label">What you'll get:</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">Choose from 1k, 2k, or 4k credit packs.</span>
+              </li>
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">Access to Intent Data from G2</span>
+              </li>
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">Identify in-market buyers</span>
+              </li>
+              <li class="checklist-item">
+                <svg class="checklist-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" fill="#1fa896"/>
+                  <path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="checklist-text">No monthly commitment</span>
+              </li>
+            </ul>
+          </div>
+          <div class="card-action">
+            <button id="buy-credits-btn" class="btn btn--primary btn--md">Add credits</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Subscription Calculator -->
+    <div class="calc-section">
+      <div class="calc-card">
+        <div class="calc-layout">
+
+          <div class="calc-slider-side">
+            <h2 class="calc-title">Not sure which option is right for you?</h2>
+            <h3 class="calc-step-label">About how many credits/month will you use?</h3>
+            <div class="calc-slider-wrap" id="calc-slider-wrap">
+              <div class="calc-slider-track">
+                <div class="calc-slider-fill" id="calc-fill"></div>
+              </div>
+              <div class="calc-threshold" id="calc-threshold" style="left: 50%;">
+                <div class="calc-threshold-line"></div>
+              </div>
+              <span class="calc-slider-value" id="calc-value-label">250 credits</span>
+              <input
+                type="range"
+                class="calc-slider-input"
+                id="calc-slider"
+                min="0"
+                max="1000"
+                step="10"
+                value="250"
+                aria-label="Estimated credits per month"
+                aria-valuetext="250 credits"
+              />
+            </div>
+            <div class="calc-slider-bounds">
+              <span>0</span>
+              <span>1,000+</span>
+            </div>
+          </div>
+
+          <!-- Right: Recommendation Card -->
+          <div class="calc-rec-side">
+            <div class="calc-rec-card calc-rec-card--bulk" id="calc-rec-card">
+              <p class="calc-rec-eyebrow" id="calc-rec-eyebrow">Recommended</p>
+              <div class="calc-rec-plan-group">
+                <h3 class="calc-rec-plan-name" id="calc-rec-name">Credit Packs</h3>
+                <div class="calc-rec-price-row">
+                  <span class="calc-rec-price" id="calc-rec-price">$0.10</span>
+                  <span class="calc-rec-price-unit" id="calc-rec-unit">/credit</span>
+                </div>
+              </div>
+
+              <ul class="calc-rec-features" id="calc-rec-features">
+                <li class="calc-rec-feature">
+                  <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  No monthly commitment
+                </li>
+                <li class="calc-rec-feature">
+                  <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Pay only for what you use
+                </li>
+                <li class="calc-rec-feature">
+                  <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Credits never expire
+                </li>
+              </ul>
+              <div class="calc-rec-cta">
+                <button id="calc-rec-btn" class="btn btn--primary btn--md">Add credits</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="../prototype-state.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Get state
+    const state = G2ActivateState.get();
+    
+    // 2. Format and display renewal date
+    if (state.plan && state.plan.renewDate) {
+      const dateObj = new Date(state.plan.renewDate);
+      const formattedDate = dateObj.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        timeZone: 'UTC' 
+      });
+      const renewalDisplay = document.getElementById('renewal-date-display');
+      if (renewalDisplay) {
+        renewalDisplay.textContent = formattedDate;
+      }
+    }
+    
+    // 3. Subscribe now button — navigate to subscription checkout
+    const subscribeBtn = document.getElementById('subscribe-btn');
+    if (subscribeBtn) {
+      subscribeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'manage-plan-subscribe.html';
+      });
+    }
+    
+    const buyCreditsBtn = document.getElementById('buy-credits-btn');
+    if (buyCreditsBtn) {
+      buyCreditsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'manage-plan-purchase-credits-03.html';
+      });
+    }
+
+    // ── Subscription Calculator ──
+    const slider = document.getElementById('calc-slider');
+    const fill = document.getElementById('calc-fill');
+    const valueLabel = document.getElementById('calc-value-label');
+    const recCard = document.getElementById('calc-rec-card');
+    const recEyebrow = document.getElementById('calc-rec-eyebrow');
+    const recName = document.getElementById('calc-rec-name');
+    const recPrice = document.getElementById('calc-rec-price');
+    const recUnit = document.getElementById('calc-rec-unit');
+
+    const recFeatures = document.getElementById('calc-rec-features');
+    const recBtn = document.getElementById('calc-rec-btn');
+
+
+    const THRESHOLD = 500;
+
+    const bulkFeatures = `
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Choose from 1k, 2k, or 4k credit packs.
+      </li>
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Access to Intent Data from G2
+      </li>
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Identify in-market buyers
+      </li>
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        No monthly commitment
+      </li>`;
+
+    const subFeatures = `
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        5,000 credits per month
+      </li>
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Supplement with pay-as-you-go credits
+      </li>
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Access to Intent Data from G2
+      </li>
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Identify in-market buyers
+      </li>
+      <li class="calc-rec-feature">
+        <svg class="calc-rec-feature-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#1fa896"/><path d="M7 10.5L9 12.5L13 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Cancel anytime
+      </li>`;
+
+    function updateCalc() {
+      const val = parseInt(slider.value, 10);
+      const pct = val / 1000;
+
+      fill.style.width = (pct * 100) + '%';
+      slider.setAttribute('aria-valuetext', val + ' credits');
+
+      const trackEl = document.getElementById('calc-slider-wrap');
+      const trackWidth = trackEl.offsetWidth;
+      const labelText = val.toLocaleString() + ' credits';
+      valueLabel.textContent = labelText;
+
+      const fillPx = pct * trackWidth;
+      const labelWidth = valueLabel.offsetWidth;
+      const GAP = 12;
+
+      if (fillPx > labelWidth + GAP + 16) {
+        valueLabel.style.left = (fillPx - labelWidth - GAP) + 'px';
+        valueLabel.classList.add('calc-slider-value--inside');
+      } else {
+        valueLabel.style.left = (fillPx + GAP) + 'px';
+        valueLabel.classList.remove('calc-slider-value--inside');
+      }
+
+      const isSub = val > THRESHOLD;
+
+      recCard.className = 'calc-rec-card ' + (isSub ? 'calc-rec-card--subscription' : 'calc-rec-card--bulk');
+      recEyebrow.textContent = 'Recommended';
+      recName.textContent = isSub ? 'G2 Activate Pro' : 'Credit Packs';
+      recPrice.textContent = isSub ? '$499' : '$0.10';
+      recUnit.textContent = isSub ? '/month' : '/credit';
+
+      recFeatures.innerHTML = isSub ? subFeatures : bulkFeatures;
+
+      recBtn.textContent = isSub ? 'Subscribe now' : 'Add credits';
+      recBtn.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = isSub ? 'manage-plan-subscribe.html' : 'manage-plan-purchase-credits-03.html';
+      };
+
+
+    }
+
+    if (slider) {
+      slider.addEventListener('input', updateCalc);
+      updateCalc();
+    }
+  });
+</script>
+
+</body>
+</html>

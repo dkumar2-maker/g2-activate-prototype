@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase Credits — G2 Activate</title>
+  <link rel="stylesheet" href="../shared/elevate-lite/tokens/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/components/elevate.css">
+  <link rel="stylesheet" href="../shared/elevate-lite/icons/icons.css">
+  <style>
+    body { margin: 0; font-family: var(--font-sans); }
+
+    .myg2-header {
+      background: white;
+      height: 60px;
+      border-bottom: 0.5px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .myg2-header-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: var(--text-default);
+      flex-shrink: 0;
+    }
+    .myg2-header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .myg2-logo {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .myg2-logo img {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+    .help-icon, .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .help-icon {
+      border: 1px solid var(--border-light);
+      color: var(--text-subtle);
+    }
+    .user-avatar {
+      background: var(--bg-primary);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 6px;
+    }
+    .breadcrumb-link,
+        .breadcrumb-link:link,
+        .breadcrumb-link:visited {
+          color: var(--text-nonessential);
+          text-decoration: none;
+          font-size: 12px;
+          line-height: 16px;
+          transition: color 150ms ease;
+        }
+    .breadcrumb-link:hover {
+      color: var(--text-default);
+    }
+    .breadcrumb-link.current {
+      color: var(--text-default);
+    }
+    .breadcrumb-separator {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--text-nonessential);
+    }
+
+    .page-header {
+      padding: 24px 0;
+    }
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-default);
+      line-height: 36px;
+      margin: 0;
+    }
+
+    .content-area {
+      background: var(--bg-neutral-5);
+      padding: 0 24px 24px;
+      min-height: calc(100vh - 60px);
+    }
+
+    .plan-status-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .status-credits {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 24px;
+    }
+    .status-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-light);
+    }
+    .renewal-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-nonessential);
+      white-space: nowrap;
+    }
+
+    .two-col-layout {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .col-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .col-sidebar {
+      width: 400px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .content-card {
+      background: white;
+      border: 0.5px solid var(--border-light);
+      border-radius: 12px;
+      box-shadow: 0px 0px 1px 0px rgba(32,31,35,0.32), 0px 4px 4px 0px rgba(32,31,35,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .stat-header-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 28px;
+    }
+
+    .stat-subtitle {
+      font-size: 14px;
+      line-height: 20px;
+      margin: 0;
+    }
+
+    .stat-subtitle strong {
+      font-weight: 600;
+      color: var(--text-default);
+    }
+
+    .stat-subtitle span {
+      font-weight: 400;
+      color: var(--text-subtle);
+    }
+
+    .elv-input-label {
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-default);
+      margin-bottom: 12px;
+    }
+
+    /* Credit tier card grid */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .tier-card {
+      position: relative;
+      background: white;
+      border: 1.5px solid var(--border-light);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tier-card:hover {
+      border-color: var(--border-medium);
+      background: var(--bg-neutral-5);
+    }
+
+    .tier-card.selected {
+      border-color: var(--bg-primary);
+      box-shadow: 0 0 0 1px var(--bg-primary);
+      background: #f2f0f9;
+    }
+
+    .tier-card.selected:hover {
+      background: #ebe9f6;
+    }
+
+    .tier-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .tier-card:focus-within {
+      outline: 3px solid var(--palette-purple-40);
+      outline-offset: 1px;
+    }
+
+    .tier-credits {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      line-height: 28px;
+      margin: 0;
+    }
+
+    .tier-price {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-subtle);
+      line-height: 20px;
+      margin: 0;
+    }
+
+    .tier-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ebe9f6;
+      color: var(--bg-primary);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      padding: 2px 8px;
+      border-radius: 8px;
+    }
+
+    .tier-card.selected .tier-badge {
+      background: var(--bg-primary);
+      color: white;
+    }
+
+    /* Text input (for payment form) */
+    .elv-text-input {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .elv-text-input__field {
+      width: 100%;
+      height: 40px;
+      padding: 0 8px;
+      box-sizing: border-box;
+      background: var(--bg-neutral-5);
+      border: 0.5px solid var(--border-medium);
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      color: var(--text-default);
+      transition: background 150ms ease, outline 150ms ease;
+    }
+
+    .elv-text-input__field:hover:not(:disabled):not(:read-only) {
+      background: var(--bg-neutral-10);
+    }
+
+    .elv-text-input__field:focus {
+      outline: 3px solid var(--palette-purple-40);
+      outline-offset: 1px;
+    }
+
+    .elv-text-input__field[readonly] {
+      cursor: default;
+      pointer-events: none;
+      outline: none;
+    }
+
+    .elv-text-input--lg .elv-text-input__field {
+      height: 48px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 24px;
+    }
+    .form-col {
+      flex: 1;
+      min-width: 0;
+    }
+    .form-col-hidden {
+      flex: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .elv-choice {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+    .elv-choice__input {
+      position: absolute;
+      opacity: 0;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      cursor: pointer;
+    }
+    .elv-choice__box {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--bg-neutral-0);
+      border: 1.5px solid var(--border-medium);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 150ms ease;
+      position: relative;
+    }
+    .elv-choice__box::after {
+      content: '';
+      display: none;
+    }
+    .elv-choice--checkbox .elv-choice__box::after {
+      width: 12px;
+      height: 12px;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .elv-choice__input:checked + .elv-choice__box {
+      background: var(--text-primary);
+      border-color: var(--text-primary);
+    }
+    .elv-choice--checkbox .elv-choice__input:checked + .elv-choice__box {
+      border-width: 2px;
+    }
+    .elv-choice__input:checked + .elv-choice__box::after {
+      display: block;
+    }
+    .elv-choice__input:focus + .elv-choice__box {
+      outline: 3px solid var(--palette-purple-40);
+      outline-offset: 1px;
+    }
+    .elv-choice--checkbox:hover .elv-choice__input:not(:checked):not(:disabled) + .elv-choice__box {
+      background: var(--bg-primary-20);
+    }
+    .elv-choice__label {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+      color: var(--text-default);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cta-dock {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pm-header {
+      padding: 24px;
+      border-bottom: 0.5px solid var(--border-medium);
+      min-height: 76px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+    }
+
+    .pm-header-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 28px;
+    }
+
+    .pm-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pm-sublabel {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-nonessential);
+      margin: 0;
+      line-height: 24px;
+    }
+
+    .card-info-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .visa-badge {
+      width: 35px;
+      height: 24px;
+      background: #1a1f71;
+      border-radius: 4px;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-text {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .card-text strong {
+      font-weight: 600;
+      color: var(--text-default);
+    }
+
+    .card-text span {
+      font-weight: 400;
+      color: var(--text-default);
+    }
+
+    .manage-link-wrapper {
+      margin-top: 4px;
+    }
+
+    .text-link {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-link);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .summary-header {
+      padding: 24px 24px 8px 24px;
+    }
+
+    .summary-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 28px;
+    }
+
+    .summary-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .line-items-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .line-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .line-item-label, .line-item-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-subtle);
+      margin: 0;
+      line-height: 24px;
+    }
+
+    .hr {
+      height: 0.5px;
+      background: var(--border-light);
+      width: 100%;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-label, .total-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 24px;
+    }
+
+    .btn {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: none;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    .btn--primary {
+      background: var(--bg-primary);
+      color: white;
+    }
+
+    .btn--primary:hover {
+      background: #45388f;
+    }
+
+    .btn--primary:focus {
+      box-shadow: 0px 0px 0px 0.5px white, 0px 0px 0px 3px rgb(195, 189, 229);
+      outline: none;
+    }
+
+    .btn--lg {
+      min-height: 48px;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+      border-radius: 100px;
+    }
+
+    .btn--full-width {
+      width: 100%;
+    }
+
+    .cancel-link-container {
+      text-align: center;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="myg2-header">
+  <div class="myg2-header-left">
+    <svg class="back-arrow" width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
+    </svg>
+    <div class="myg2-logo">
+      <img src="../shared/elevate-lite/assets/logos/g2-logo-rorange.svg" alt="G2 Logo" />
+    </div>
+    <span style="font-size: 16px; font-weight: 600; margin-left: 4px;">MyG2</span>
+  </div>
+  <div class="myg2-header-right">
+    <div class="help-icon">?</div>
+    <div class="user-avatar">HC</div>
+  </div>
+</header>
+
+<div elv>
+  <div class="content-area">
+
+    <div class="page-header">
+      <nav class="breadcrumbs">
+        <a href="#" class="breadcrumb-link">Home</a>
+        <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+        </svg>
+        <a href="#" class="breadcrumb-link">Buyer Activity</a>
+        <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+        </svg>
+        <a href="prospects-available.html" class="breadcrumb-link">G2 Activate</a>
+        <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+        </svg>
+        <a href="manage-plan-inactive.html" class="breadcrumb-link">Manage Plan</a>
+        <svg class="breadcrumb-separator" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.875 10L6.9375 6.0625L8 5L13 10L8 15L6.9375 13.9375L10.875 10Z" fill="currentColor"/>
+        </svg>
+        <span class="breadcrumb-link current">Purchase Credits</span>
+      </nav>
+      <div class="page-title-row">
+        <h1 class="page-title">Purchase Credits</h1>
+      </div>
+    </div>
+
+    <div class="plan-status-bar">
+      <div class="status-credits">
+        <span>My credits: <span data-credits>0</span></span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2C11.111 2 12.1491 2.20841 13.1143 2.625C14.0795 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92046 17.375 6.88574C17.7916 7.85094 18 8.88899 18 10C18 11.0972 17.7917 12.1323 17.375 13.1045C16.9583 14.0766 16.3853 14.9272 15.6562 15.6562C14.9271 16.3854 14.0795 16.9583 13.1143 17.375C12.1491 17.7916 11.111 18 10 18C8.90278 18 7.86773 17.7917 6.89551 17.375C5.9234 16.9583 5.07285 16.3853 4.34375 15.6562C3.61465 14.9272 3.04166 14.0766 2.625 13.1045C2.20833 12.1323 2 11.0972 2 10C2 8.88899 2.20841 7.85094 2.625 6.88574C3.04167 5.92046 3.61458 5.07292 4.34375 4.34375C5.07285 3.61465 5.9234 3.04166 6.89551 2.625C7.86773 2.20833 8.90278 2 10 2ZM8.79199 8.5H5L8.08301 10.708L6.91699 14.5L10 12.1455L13.083 14.5L11.917 10.708L15 8.5H11.208L10 4.5L8.79199 8.5Z" fill="#5746B2"/>
+        </svg>
+      </div>
+      <div id="renewal-divider" class="status-divider" style="display: none;"></div>
+      <span id="renewal-text" class="renewal-text" style="display: none;"></span>
+    </div>
+
+    <div class="two-col-layout">
+
+      <div class="col-main">
+
+        <div class="content-card">
+          <div class="stat-card-body">
+            <div class="form-group" style="max-width: 50%;">
+              <label class="elv-input-label" for="credit-amount">How many credits?</label>
+              <div class="elv-text-input elv-text-input--lg">
+                <input type="text" id="credit-amount" class="elv-text-input__field" placeholder="Enter number of credits" inputmode="numeric" aria-label="How many credits?" />
+              </div>
+              <p style="font-size: 12px; font-weight: 400; color: var(--text-nonessential); margin: 8px 0 0 0; line-height: 16px;">Minimum 100, maximum 50,000 credits</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="pm-form-card" class="content-card" style="display: none;">
+          <div class="pm-header">
+            <h2 class="pm-header-title">Payment Method</h2>
+          </div>
+          <div class="pm-body">
+            <div class="form-group">
+              <label class="elv-input-label" for="card-number">Card Number</label>
+              <div class="elv-text-input elv-text-input--lg">
+                <input type="text" id="card-number" class="elv-text-input__field" value="4242 4242 4242 1234" readonly tabindex="-1" aria-label="Card Number" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-col">
+                <label class="elv-input-label" for="card-cvv">CVV</label>
+                <div class="elv-text-input elv-text-input--lg">
+                  <input type="text" id="card-cvv" class="elv-text-input__field" value="•••" readonly tabindex="-1" aria-label="CVV" />
+                </div>
+              </div>
+              <div class="form-col">
+                <label class="elv-input-label" for="card-exp">Expiration Date</label>
+                <div class="elv-text-input elv-text-input--lg">
+                  <input type="text" id="card-exp" class="elv-text-input__field" value="10/2029" readonly tabindex="-1" aria-label="Expiration Date" />
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-col">
+                <label class="elv-input-label" for="billing-zip">Billing ZIP Code</label>
+                <div class="elv-text-input elv-text-input--lg">
+                  <input type="text" id="billing-zip" class="elv-text-input__field" value="60601" readonly tabindex="-1" aria-label="Billing ZIP Code" />
+                </div>
+              </div>
+              <div class="form-col-hidden"></div>
+            </div>
+            <label class="elv-choice elv-choice--checkbox">
+              <input type="checkbox" class="elv-choice__input" checked disabled />
+              <span class="elv-choice__box"></span>
+              <span class="elv-choice__label">Set as default payment</span>
+            </label>
+            <div class="cta-dock">
+              <button id="save-pm-btn" class="btn btn--primary btn--lg">Save</button>
+              <a href="#" class="text-link">Manage payment methods</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="pm-saved-card" class="content-card" style="display: none;">
+          <div class="pm-header">
+            <h2 class="pm-header-title">Payment Method</h2>
+          </div>
+          <div class="pm-body">
+            <p class="pm-sublabel">Current Payment Method</p>
+            <div class="card-info-row">
+              <div class="visa-badge">VISA</div>
+              <div class="card-text"><strong>Visa</strong><span> ending in 1234</span></div>
+            </div>
+            <div class="manage-link-wrapper">
+              <a href="#" class="text-link">Manage payment methods</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-sidebar">
+
+        <div class="content-card">
+          <div class="summary-header">
+            <h2 class="summary-title">Cost Summary</h2>
+          </div>
+          <div class="summary-body">
+            <div class="line-items-container">
+              <div class="line-item">
+                <p class="line-item-label">Price per credit</p>
+                <p class="line-item-value">$0.10</p>
+              </div>
+              <div class="line-item">
+                <p class="line-item-label">Credits to purchase</p>
+                <p class="line-item-value" id="summary-credits">2,000</p>
+              </div>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="total-row">
+              <p class="total-label">Total</p>
+              <p class="total-value" id="summary-total">$200.00</p>
+            </div>
+
+            <button id="purchase-btn" class="btn btn--primary btn--lg btn--full-width">Purchase credits</button>
+          </div>
+        </div>
+
+        <div class="cancel-link-container">
+          <button class="btn btn--text-neutral btn--md" onclick="window.location.href='manage-plan-inactive.html'">Cancel</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="../prototype-state.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    var pmFormCard = document.getElementById('pm-form-card');
+    var pmSavedCard = document.getElementById('pm-saved-card');
+    var PM_KEY = 'g2ActivatePaymentMethodSaved';
+
+    if (localStorage.getItem(PM_KEY) === 'true') {
+      pmSavedCard.style.display = '';
+    } else {
+      pmFormCard.style.display = '';
+    }
+
+    var savePmBtn = document.getElementById('save-pm-btn');
+    if (savePmBtn) {
+      savePmBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.setItem(PM_KEY, 'true');
+        pmFormCard.style.display = 'none';
+        pmSavedCard.style.display = '';
+      });
+    }
+
+    if (typeof G2ActivateState !== 'undefined') {
+      G2ActivateState.updateCreditDisplay();
+
+      var state = G2ActivateState.get();
+
+      var currentCreditsText = document.getElementById('current-credits-text');
+      if (currentCreditsText) {
+        currentCreditsText.textContent = state.credits.toLocaleString();
+      }
+
+      if (state.plan && state.plan.status === 'active' && state.plan.renewDate) {
+        var d = new Date(state.plan.renewDate + 'T00:00:00');
+        var div = document.getElementById('renewal-divider');
+        var el = document.getElementById('renewal-text');
+        if (div && el) {
+          el.textContent = 'Next ' + state.plan.monthlyCredits.toLocaleString() + ' credits: ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          div.style.display = '';
+          el.style.display = '';
+        }
+      }
+    }
+
+    var creditInput = document.getElementById('credit-amount');
+    var summaryCredits = document.getElementById('summary-credits');
+    var summaryTotal = document.getElementById('summary-total');
+
+    function updateFromInput() {
+      var numValue = parseInt(creditInput.value, 10) || 0;
+      var total = numValue * 0.10;
+      summaryCredits.textContent = numValue.toLocaleString();
+      summaryTotal.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total);
+    }
+
+    if (creditInput) {
+      creditInput.addEventListener('input', updateFromInput);
+      updateFromInput();
+    }
+
+    var purchaseBtn = document.getElementById('purchase-btn');
+    if (purchaseBtn) {
+      purchaseBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var numValue = parseInt(creditInput.value, 10) || 0;
+        if (numValue <= 0) {
+          alert('Please enter a credit amount.');
+          return;
+        }
+        if (typeof G2ActivateState !== 'undefined') {
+          G2ActivateState.addCredits(numValue);
+        }
+        alert('Purchase complete! ' + numValue.toLocaleString() + ' credits have been added to your account.');
+        window.location.href = 'prospects-available.html';
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
