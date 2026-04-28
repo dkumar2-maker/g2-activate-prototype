@@ -610,7 +610,7 @@
 <div elv class="page-content">
 
   <!-- Back Button -->
-  <a href="prospects-available.html" class="btn btn--text btn--sm" style="margin-bottom: 28px; color: #5746b2;">
+  <a href="prospects-unlocked.html" class="btn btn--text btn--sm" style="margin-bottom: 28px; color: #5746b2;">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
     </svg>
@@ -798,7 +798,7 @@
   const companyId = urlParams.get('id');
 
   if (!companyId) {
-    window.location.href = 'prospects-available.html';
+    window.location.href = 'prospects-unlocked.html';
     return;
   }
 
@@ -814,7 +814,7 @@
   const stateCompany = findCompanyInState(companyId);
 
   if (!stateCompany) {
-    window.location.href = 'prospects-available.html';
+    window.location.href = 'prospects-unlocked.html';
     return;
   }
 
