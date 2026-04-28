@@ -1,5 +1,12 @@
 {
   "git": {
     "submodules": true
-  }
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/pages/prospects-available.html",
+      "permanent": false
+    }
+  ]
 }
