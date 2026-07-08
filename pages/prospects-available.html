@@ -1091,6 +1091,9 @@
     }
 
   </style>
+
+  <!-- Walkthrough Styles -->
+  <link rel="stylesheet" href="../walkthrough.css">
 </head>
 <body>
 
@@ -1106,6 +1109,12 @@
     <span style="font-size: 16px; font-weight: 600; margin-left: 4px;">MyG2</span>
   </div>
   <div class="myg2-header-right">
+    <button class="restart-tour-btn" onclick="G2Walkthrough.start()" title="Restart product tour">
+      <svg class="restart-tour-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 2C4.686 2 2 4.686 2 8s2.686 6 6 6 6-2.686 6-6h-1.5c0 2.485-2.015 4.5-4.5 4.5S3.5 10.485 3.5 8 5.515 3.5 8 3.5c1.24 0 2.36.503 3.182 1.318L9.5 6.5h4.5v-4.5l-1.591 1.591C11.395 2.577 9.784 2 8 2z" fill="currentColor"/>
+      </svg>
+      Restart Tour
+    </button>
     <div class="help-icon">?</div>
     <div class="user-avatar">HC</div>
   </div>
@@ -1454,6 +1463,8 @@
 <script>
 // Selection state
 let selectedCompanies = new Set();
+// Expose to window for walkthrough access
+window.selectedCompanies = selectedCompanies;
 
 // Pagination state
 let currentPage = 1;
@@ -2398,6 +2409,9 @@ document.querySelectorAll('[data-combobox]').forEach(element => {
   comboboxInstances.set(element, instance);
 });
 
+// Expose to window for walkthrough access
+window.comboboxInstances = comboboxInstances;
+
 // Initial render (after comboboxes are initialized)
 renderTable();
 
@@ -2516,6 +2530,30 @@ updateSectionClearButtons();
     if (div && span) { span.textContent = txt; div.style.display = ''; span.style.display = ''; }
   }
 })();
+</script>
+
+<!-- Walkthrough Script -->
+<script src="../walkthrough.js"></script>
+<script>
+  // Auto-trigger walkthrough on first visit or continue from unlocked page
+  document.addEventListener('DOMContentLoaded', function() {
+    const shouldContinue = localStorage.getItem('g2WalkthroughContinueOnAvailable');
+
+    if (shouldContinue === 'true') {
+      console.log('Available page: Continuing walkthrough from unlocked page...');
+      localStorage.removeItem('g2WalkthroughContinueOnAvailable');
+      setTimeout(function() {
+        if (typeof G2Walkthrough !== 'undefined' && G2Walkthrough.continueOnAvailablePage) {
+          G2Walkthrough.continueOnAvailablePage();
+        }
+      }, 500);
+    } else if (!G2Walkthrough.isCompleted()) {
+      // Small delay to ensure page is fully loaded
+      setTimeout(function() {
+        G2Walkthrough.start();
+      }, 500);
+    }
+  });
 </script>
 
 </body>

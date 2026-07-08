@@ -672,6 +672,7 @@
       user-select: none;
     }
   </style>
+  <link rel="stylesheet" href="../walkthrough.css">
 </head>
 <body>
 
@@ -750,7 +751,7 @@
 
     <!-- Secondary Tabs -->
     <nav class="secondary-tabs">
-      <a href="prospects-available.html" class="secondary-tab">Available Prospects</a>
+      <a href="prospects-available.html" class="secondary-tab" id="availableProspectsTab">Available Prospects</a>
       <a href="prospects-unlocked.html" class="secondary-tab active">Unlocked Prospects</a>
     </nav>
 
@@ -1029,6 +1030,39 @@
     if (div && span) { span.textContent = txt; div.style.display = ''; span.style.display = ''; }
   }
 })();
+</script>
+
+<!-- Walkthrough -->
+<script src="../walkthrough.js"></script>
+<script>
+  // Check if walkthrough should continue on this page
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Unlocked page: DOMContentLoaded');
+    const shouldContinue = localStorage.getItem('g2WalkthroughContinueOnUnlocked');
+    console.log('Unlocked page: shouldContinue flag =', shouldContinue);
+
+    if (shouldContinue === 'true') {
+      console.log('Unlocked page: Continuing walkthrough...');
+      localStorage.removeItem('g2WalkthroughContinueOnUnlocked');
+      // Small delay to ensure page is fully rendered
+      setTimeout(() => {
+        console.log('Unlocked page: Calling continueOnUnlockedPage()');
+        if (typeof G2Walkthrough !== 'undefined' && G2Walkthrough.continueOnUnlockedPage) {
+          G2Walkthrough.continueOnUnlockedPage();
+        }
+      }, 500);
+    }
+  });
+
+  // Manual test trigger (Shift+U)
+  document.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.key === 'U') {
+      console.log('Unlocked page: Manual trigger - calling continueOnUnlockedPage()');
+      if (typeof G2Walkthrough !== 'undefined' && G2Walkthrough.continueOnUnlockedPage) {
+        G2Walkthrough.continueOnUnlockedPage();
+      }
+    }
+  });
 </script>
 
 </body>

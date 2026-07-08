@@ -586,6 +586,7 @@
       line-height: 20px;
     }
   </style>
+  <link rel="stylesheet" href="../walkthrough.css">
 </head>
 <body>
 
@@ -610,7 +611,7 @@
 <div elv class="page-content">
 
   <!-- Back Button -->
-  <a href="prospects-unlocked.html" class="btn btn--text btn--sm" style="margin-bottom: 28px; color: #5746b2;">
+  <a href="prospects-unlocked.html" class="btn btn--text btn--sm" id="backToUnlockedBtn" style="margin-bottom: 28px; color: #5746b2;">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M6.875 10.75L11.0625 14.9375L10 16L4 10L10 4L11.0625 5.0625L6.875 9.25H16V10.75H6.875Z" fill="currentColor"/>
     </svg>
@@ -1172,6 +1173,49 @@
   }
 
 })();
+</script>
+
+<!-- Walkthrough -->
+<script src="../walkthrough.js"></script>
+<script>
+  // Check if walkthrough should continue on this page
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Details page: DOMContentLoaded');
+    console.log('Details page: G2Walkthrough exists?', typeof G2Walkthrough !== 'undefined');
+    console.log('Details page: G2Walkthrough =', G2Walkthrough);
+    const shouldContinue = localStorage.getItem('g2WalkthroughContinueOnDetails');
+    console.log('Details page: shouldContinue flag =', shouldContinue);
+
+    if (shouldContinue === 'true') {
+      console.log('Details page: Continuing walkthrough...');
+      localStorage.removeItem('g2WalkthroughContinueOnDetails');
+      // Small delay to ensure page is fully rendered
+      setTimeout(() => {
+        console.log('Details page: Calling continueOnDetailsPage()');
+        if (typeof G2Walkthrough !== 'undefined' && G2Walkthrough.continueOnDetailsPage) {
+          G2Walkthrough.continueOnDetailsPage();
+        } else {
+          console.error('Details page: G2Walkthrough.continueOnDetailsPage not available!');
+        }
+      }, 500);
+    } else {
+      console.log('Details page: Not continuing walkthrough (flag not set)');
+      // For testing: add keyboard shortcut to manually trigger
+      console.log('Details page: Press Shift+T to manually test walkthrough on this page');
+    }
+  });
+
+  // Manual test trigger (Shift+T)
+  document.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.key === 'T') {
+      console.log('Details page: Manual trigger - calling continueOnDetailsPage()');
+      if (typeof G2Walkthrough !== 'undefined' && G2Walkthrough.continueOnDetailsPage) {
+        G2Walkthrough.continueOnDetailsPage();
+      } else {
+        console.error('Details page: G2Walkthrough not available');
+      }
+    }
+  });
 </script>
 
 </body>
